@@ -3,10 +3,18 @@ from django.contrib import admin
 from Shop.models import Metal, Jewel
 
 
-class JewelAdmin(admin.ModelAdmin):
-    """Customize the look of the auto-generated admin for the Member model"""
-    list_display = ('name', 'instrument')
-    list_filter = ('band',)
+class MetalAdmin(admin.ModelAdmin):
+    list_display = ['name']
+admin.site.register(Metal, MetalAdmin)
 
-admin.site.register(Metal)
-admin.site.register(Jewel)
+
+class JewelAdmin(admin.ModelAdmin):
+    list_display = ['name', 'metal_name', 'fineness']
+    list_filter = ['name', 'fineness']
+    ordering = ['name', 'fineness']
+    list_display_links = ['name', 'metal_name', 'fineness']
+
+    @staticmethod
+    def metal_name(obj):
+        return obj.metal.name
+admin.site.register(Jewel, JewelAdmin)

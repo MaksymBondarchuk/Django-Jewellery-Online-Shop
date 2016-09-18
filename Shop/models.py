@@ -9,6 +9,9 @@ class Metal(models.Model):
     def __unicode__(self):
         return self.name
 
+    def __str__(self):
+        return self.name
+
 
 class Jewel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
