@@ -13,5 +13,6 @@ def home(request):
         {
             'title': 'Home Page',
             'year': datetime.now().year,
+            'numberInCard': 45
         }
     )

@@ -10,9 +10,9 @@ admin.site.register(Metal, MetalAdmin)
 
 class JewelAdmin(admin.ModelAdmin):
     list_display = ['name', 'metal_name', 'fineness']
-    list_filter = ['name', 'fineness']
-    ordering = ['name', 'fineness']
-    list_display_links = ['name', 'metal_name', 'fineness']
+    list_filter = ['name']
+    ordering = ['name']
+    list_display_links = ['name', 'metal_name']
 
     @staticmethod
     def metal_name(obj):
