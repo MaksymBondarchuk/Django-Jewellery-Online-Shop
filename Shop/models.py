@@ -18,7 +18,7 @@ class Jewel(models.Model):
     name = models.CharField(max_length=100)
     metal = models.ForeignKey(Metal, on_delete=models.CASCADE)
     fineness = models.IntegerField(default=0),
-    image = models.ImageField(default='')
+    image = models.CharField(max_length=1000)
 
     def __unicode__(self):
         return self.name
