@@ -1,20 +1,17 @@
 {% extends "layout.html" %}
+{% load static %}
 
 {% block content %}
-
-<p>Test</p>
+    {% for jewel in jewels  %}
+        <div class="store-item">
+{#        <img src="{{MEDIA_URL}}{{ jewel.image }}" alt="My image"/>#}
+        <img src="Images/{{ jewel.image }}" alt="{{ jewel.name }}" class="store-image" onclick="zoomImage(this)"/>
+{#        <img src="Images/{{ jewel.image }}">#}
+        <p>{{ jewel.name }}</p>
+        <p>{{ jewel.metal.name }}</p>
+        <p>{{ jewel.fineness }}</p>
+{#        <p>{{ jewel.image }}</p>#}
+        </div>
+    {% endfor %}
 
 {% endblock %}
-
-{#<html>#}
-{#<head>#}
-{#    <meta charset="utf-8" />#}
-{#    <title>Bondarchuk/Shcherbakova shop</title>#}
-{#    {% load staticfiles %}#}
-{#    <link rel="stylesheet" type="text/css" href="../Styles/site.css" />#}
-{#    <script src="../Scripts/site.js"></script>#}
-{#</head>#}
-{##}
-{#<body>#}
-{#    <p>&copy; {{ year }} - M.Bondarchuk, G.Shcherbakova</p>#}
-{#</body>#}

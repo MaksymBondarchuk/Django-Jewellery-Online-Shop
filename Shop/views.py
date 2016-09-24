@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
+from Shop.models import Metal, Jewel
 
 
 def home(request):
@@ -13,6 +14,7 @@ def home(request):
         {
             'title': 'Home Page',
             'year': datetime.now().year,
-            'numberInCard': 45
+            'numberInCard': 45,
+            'jewels': Jewel.objects.all()
         }
     )
