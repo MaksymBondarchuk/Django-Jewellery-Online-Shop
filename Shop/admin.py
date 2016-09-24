@@ -9,7 +9,7 @@ admin.site.register(Metal, MetalAdmin)
 
 
 class JewelAdmin(admin.ModelAdmin):
-    list_display = ['name', 'metal_name', 'fineness', 'image']
+    list_display = ['name', 'metal_name', 'fineness', 'image', 'description']
     list_filter = ['name']
     ordering = ['name']
     list_display_links = ['name', 'metal_name']

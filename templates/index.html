@@ -2,15 +2,22 @@
 {% load static %}
 
 {% block content %}
-    {% for jewel in jewels  %}
+    {% for jewel in jewels %}
         <div class="store-item">
-{#        <img src="{{MEDIA_URL}}{{ jewel.image }}" alt="My image"/>#}
-        <img src="Images/{{ jewel.image }}" alt="{{ jewel.name }}" class="store-image" onclick="zoomImage(this)"/>
-{#        <img src="Images/{{ jewel.image }}">#}
-        <p>{{ jewel.name }}</p>
-        <p>{{ jewel.metal.name }}</p>
-        <p>{{ jewel.fineness }}</p>
-{#        <p>{{ jewel.image }}</p>#}
+            <div class="inner">
+                <img src="Images/{{ jewel.image }}" alt="{{ jewel.name }}" class="store-image"
+                     onclick="zoomImage(this)"/>
+                {#        <p>{{ jewel.name }}</p>#}
+                {#        <p>{{ jewel.metal.name }}</p>#}
+                {#        <p>{{ jewel.fineness }}</p>#}
+                <div class="store-item-title"><b>{{ jewel.name }}</b></div>
+                <div class="store-item-button">Buy</div>
+                <p class="description">{{ jewel.description }}</p>
+                {#            <div class="store-item-bottom">#}
+                {#                <p>{{ jewel.metal.name }}</p>#}
+                {#                <p>{{ jewel.fineness }}</p>#}
+                {#            </div>#}
+            </div>
         </div>
     {% endfor %}
 

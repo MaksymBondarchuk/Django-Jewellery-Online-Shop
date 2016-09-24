@@ -1,3 +1,5 @@
+// region Image zoom
+// todo Add check for display height
 function zoomImage(image) {
     var modal = document.getElementById("zoomImageDiv");
     var modalImg = document.getElementById("zoomedImage");
@@ -12,3 +14,4 @@ function closeZoomedImage() {
     var modal = document.getElementById("zoomImageDiv");
     modal.style.display = "none";
 }
+// endregion
