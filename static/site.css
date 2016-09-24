@@ -1,17 +1,15 @@
 body {
     display: block;
 
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Calibri Light", sans-serif;
     font-size: 14px;
     line-height: 1.428571429;
-    color: #333;
 }
 
 .header {
-    background-color: #222;
-    /*height: 200px;*/
+    background-color: black;
+
     width: 100%;
-    /*display: table;*/
 
     position: fixed;
     right: 0;
@@ -29,25 +27,22 @@ body {
     max-width: 1170px;
     margin-right: auto;
     margin-left: auto;
-
 }
 
-.logo {
-    color: #999;
+.menuItem {
+    color: white;
+    -webkit-transition: background-color 500ms;
+    border-left: solid #222 1px;
+    border-right: solid #222 1px;
     float: left;
     padding: 15px 15px;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 20px;
     text-decoration: none;
 }
 
-.logo:hover {
-    color: #fff;
-    background-color: transparent;
-    float: left;
-    padding: 15px 15px;
-    font-size: 18px;
-    line-height: 20px;
+.menuItem:hover {
+    background-color: #104a7d;
 }
 
 .right {
