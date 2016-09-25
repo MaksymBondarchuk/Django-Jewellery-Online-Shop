@@ -23,4 +23,7 @@ urlpatterns = [
     url(r'^$', Shop.views.home),
     url(r'^home/', Shop.views.home),
     url(r'^home', Shop.views.home),
+
+    url(r'^buy/', Shop.views.buy),
+    url(r'^buy', Shop.views.buy),
 ]

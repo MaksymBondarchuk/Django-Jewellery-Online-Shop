@@ -2,21 +2,31 @@
 {% load static %}
 
 {% block content %}
+    <div class="filter">
+        <div class="container">
+            <div class="left">
+                <a href="/" class="filter-item">Catalogue</a>
+            </div>
+            <div class="right">
+                <!--suppress HtmlUnknownTarget -->
+                <a href="/admin" class="filter-item">Administrate</a>
+            </div>
+            <div class="right">
+                <!--suppress HtmlUnknownTarget -->
+                <a href="/admin" class="filter-item">Card: {{ numberInCard }}</a>
+            </div>
+        </div>
+    </div>
     {% for jewel in jewels %}
         <div class="store-item">
             <div class="inner">
                 <img src="Images/{{ jewel.image }}" alt="{{ jewel.name }}" class="store-image"
                      onclick="zoomImage(this)"/>
-                {#        <p>{{ jewel.name }}</p>#}
-                {#        <p>{{ jewel.metal.name }}</p>#}
-                {#        <p>{{ jewel.fineness }}</p>#}
                 <div class="store-item-title"><b>{{ jewel.name }}</b></div>
-                <div class="store-item-button">Buy</div>
-                <p class="description">{{ jewel.description }}</p>
-                {#            <div class="store-item-bottom">#}
-                {#                <p>{{ jewel.metal.name }}</p>#}
-                {#                <p>{{ jewel.fineness }}</p>#}
-                {#            </div>#}
+                <div class="store-item-button" onclick="buy('{{ jewel.id }}')">Buy</div>
+                <p class="description"><b>Made from </b>{{ jewel.metal.name }}<br/>
+                    <b>Fineness: </b>{{ jewel.fineness }}<br/>
+                    {{ jewel.description }}</p>
             </div>
         </div>
     {% endfor %}

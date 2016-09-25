@@ -39,8 +39,42 @@ body {
 .header-item:hover {
     background-color: #104a7d;
 }
-
 /* endregion Header */
+
+/* region Filter */
+.filter {
+    background-color: #eaeaea;
+
+    width: 100%;
+
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 50px;
+
+    /*min-height: 30px;*/
+
+    clear: both;
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+.filter-item {
+    color: black;
+    -webkit-transition: background-color 0.4s;
+    border-left: solid #222 1px;
+    border-right: solid #222 1px;
+    float: left;
+    padding: 5px 5px;
+    font-size: 16px;
+    /*line-height: 20px;*/
+    text-decoration: none;
+}
+
+.filter-item:hover {
+    background-color: #104a7d;
+}
+/* endregion Filter */
 
 /* region Main*/
 .container {
@@ -54,7 +88,7 @@ body {
 }
 
 .body-content {
-    margin-top: 70px;
+    margin-top: 100px;
 }
 
 .store-item {

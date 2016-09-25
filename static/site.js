@@ -15,3 +15,12 @@ function closeZoomedImage() {
     modal.style.display = "none";
 }
 // endregion
+
+// region Main page
+function buy(id) {
+    $.post("buy", {jewel: id}, function (result) {
+        location.href = 'home';
+        // alert(result);
+    });
+}
+// endregion Main page
