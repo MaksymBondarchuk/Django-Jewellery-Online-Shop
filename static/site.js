@@ -18,9 +18,14 @@ function closeZoomedImage() {
 
 // region Main page
 function buy(id) {
-    $.post("buy", {jewel: id}, function (result) {
+    $.post("buy", {jewel: id}, function () {
         location.href = 'home';
-        // alert(result);
+    });
+}
+
+function metalChecked(id, item) {
+    $.post("metal", {metal: id, state: item.checked}, function () {
+        location.href = 'home';
     });
 }
 // endregion Main page

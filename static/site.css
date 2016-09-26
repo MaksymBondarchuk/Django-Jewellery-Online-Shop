@@ -1,5 +1,6 @@
 body {
     display: block;
+    margin: 0;
 
     font-family: "Calibri Light", sans-serif;
     font-size: 14px;
@@ -39,18 +40,22 @@ body {
 .header-item:hover {
     background-color: #104a7d;
 }
+
 /* endregion Header */
 
 /* region Filter */
 .filter {
     background-color: #eaeaea;
 
-    width: 100%;
+    float: left;
 
+    max-width: 300px;
+    margin-right: auto;
+    margin-left: 0;
     position: fixed;
-    right: 0;
+    /*right: 0;*/
     left: 0;
-    top: 50px;
+    /*top: 50px;*/
 
     /*min-height: 30px;*/
 
@@ -74,6 +79,7 @@ body {
 .filter-item:hover {
     background-color: #104a7d;
 }
+
 /* endregion Filter */
 
 /* region Main*/
@@ -81,6 +87,7 @@ body {
     max-width: 1200px;
     margin-right: auto;
     margin-left: auto;
+    position: relative
 }
 
 .right {
@@ -88,7 +95,9 @@ body {
 }
 
 .body-content {
-    margin-top: 100px;
+    height: 100%;
+    margin-top: 50px;
+    margin-bottom: 10px;
 }
 
 .store-item {
@@ -111,14 +120,14 @@ body {
 .inner {
     position: absolute;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-     -webkit-transition: transform 0.4s;
+    -webkit-transition: transform 0.4s;
 }
 
 .inner:hover {
     /*height: 450px;*/
     z-index: 6;
     background-color: #eaeaea;
-    transform: scale(1.1,1.1);
+    transform: scale(1.1, 1.1);
 }
 
 .store-image {
@@ -169,11 +178,32 @@ body {
     margin-bottom: 0;
 }
 
+.customer-data {
+    clear: left;
+}
+
 /* endregion Main*/
 
+.footer-outer {
+    padding-top: 80px;
+    height: 200px;
+    background: white;
+}
+
 .footer {
-    padding-top: 30px;
     clear: left;
+
+    background: #f2f2f2;
+
+    width: 100%;
+
+    display: table;
+    /*margin: 0 auto;*/
+    right: 0;
+    left: 0;
+
+    /*position: fixed;*/
+    bottom: 0;
 }
 
 /* region ZoomedImage */

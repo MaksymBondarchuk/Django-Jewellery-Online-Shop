@@ -2,23 +2,6 @@
 {% load static %}
 
 {% block content %}
-    <div class="filter">
-        Metal<br>
-        {% for metal in metals %}
-            {% if metal.id in forbidden_metals %}
-                <input type="checkbox" value="{{ metal.id }}" name="metal" title="123"
-                       onchange="metalChecked(value, this)" checked>{{ metal.name }}<br>
-            {% else %}
-                <input type="checkbox" value="{{ metal.id }}" name="metal" title="123"
-                       onchange="metalChecked(value, this)">{{ metal.name }}<br>
-            {% endif %}
-        {% endfor %}
-        <hr>
-        Fineness<br>
-        From<input type="text" name="from" title="From"><br/>
-        To<input type="text" name="to" title="To"><br/>
-    </div>
-
     {% for jewel in jewels %}
         <div class="store-item">
             <div class="inner">
@@ -33,4 +16,7 @@
         </div>
     {% endfor %}
 
+    <div class="customer-data">
+        <input type="text" title="Email"/>
+    </div>
 {% endblock %}
