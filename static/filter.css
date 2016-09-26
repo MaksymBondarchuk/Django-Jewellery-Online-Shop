@@ -54,21 +54,20 @@
     text-align:right;
 }
 
-input[type=text] {
+.filter-input {
     background-color: #eaeaea;
     border: 0;
     width: 50px;
     border-bottom: 1px solid black;
 }
 
-input[type=text]:hover {
+.filter-input:hover {
     border-bottom: 2px solid #104a7d;
 }
 
-input[type=text]:focus {
+.filter-input:focus {
     outline: 0;
     border-bottom: 2px solid #007ACC;
-
 }
 
 .filter-close {

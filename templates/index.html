@@ -18,10 +18,10 @@
         <b>By fineness</b><br>
         <div class="text-input">
             <div class="filter-close" onclick="finenessChanged('from', '')">x</div>
-            From <input type="text" name="from" title="From" onchange="finenessChanged(name, value)"
+            From <input class="filter-input" type="text" name="from" title="From" onchange="finenessChanged(name, value)"
                         value="{{ fineness_from }}" align="right"><br/>
             <div class="filter-close"  onclick="finenessChanged('to', '')">x</div>
-            To <input type="text" name="to" title="To" onchange="finenessChanged(name, value)"
+            To <input class="filter-input" type="text" name="to" title="To" onchange="finenessChanged(name, value)"
                       value="{{ fineness_to }}" align="right"><br/>
         </div>
     </div>

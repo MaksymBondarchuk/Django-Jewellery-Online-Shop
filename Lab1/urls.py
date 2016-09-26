@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^home', Shop.views.home),
 
     url(r'^order', Shop.views.order),
+    url(r'^complete', Shop.views.complete),
 
     #  Filtration
     url(r'^metal', Shop.views.metal),

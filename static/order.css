@@ -1,0 +1,42 @@
+.customer-data {
+    padding-top: 20px;
+}
+
+.order-input {
+    /*background-color: #eaeaea;*/
+    border: 0;
+    font-size: 25px;
+    width: 500px;
+    border-bottom: 2px solid black;
+    margin-bottom: 10px;
+    -webkit-transition: transform 0.4s;
+
+}
+
+.order-input:hover {
+    border-bottom: 2px solid #104a7d;
+    color: #104a7d;
+    transform: scale(1.1, 1.1);
+
+}
+
+.order-input:focus {
+    outline: 0;
+    border-bottom: 2px solid #007ACC;
+    color: #007ACC;
+}
+
+.order-proceed {
+    width: 200px;
+    font-size: 25px;
+    background-color: #104a7d;
+    color: white;
+}
+
+.order-proceed:hover {
+    background-color: #007ACC;
+}
+
+.order-proceed:active {
+    background: black;
+}

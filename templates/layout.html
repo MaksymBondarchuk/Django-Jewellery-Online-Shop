@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'filter.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'footer.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'other.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'order.css' %}"/>
     <script src="{% static 'site.js' %}"></script>
     <script src="{% static 'jquery-3.1.1.js' %}"></script>
 </head>
@@ -24,10 +25,12 @@
             <!--suppress HtmlUnknownTarget -->
             <a href="/admin" class="header-item">Administrate</a>
         </div>
-        <div class="right">
-            <!--suppress HtmlUnknownTarget -->
-            <a href="/order" class="header-item">Card: {{ numberInCard }}</a>
-        </div>
+        {% if number_in_cart != 0 %}
+            <div class="right">
+                <!--suppress HtmlUnknownTarget -->
+                <a href="/order" class="header-item">Cart: {{ number_in_cart }}</a>
+            </div>
+        {% endif %}
     </div>
 </div>
 
@@ -35,10 +38,23 @@
     {% block content %}{% endblock %}
 </div>
 
-<div id="zoomImageDiv" class="modal">
-    <span class="close" onclick="closeZoomedImage()">×</span>
-    <img class="modal-content" id="zoomedImage">
-    <div id="caption"></div>
+<div id="modal" class="modal">
+    <div id="modal-image" class="modal-image">
+        <span class="close" onclick="closeModal()">×</span>
+        <img class="modal-content" id="zoomedImage">
+        <div id="caption"></div>
+    </div>
+    <div id="modal-text" class="modal-text">
+        <div class="modal-header">
+            <b>Order created</b>
+        </div>
+        <div class="modal-body">
+            We will contact you in short time...
+        </div>
+        <div class="modal-button button" onclick="completeOrder()">
+            OK
+        </div>
+    </div>
 </div>
 
 <div class="footer-outer">

@@ -17,6 +17,10 @@
     {% endfor %}
 
     <div class="customer-data">
-        <input type="text" title="Email"/>
+        <input class="order-input" type="text" title="Name" placeholder="Name"/><br>
+        <input class="order-input" type="text" title="Email" placeholder="Email"/><br>
+        <input class="order-input" type="text" title="Phone" placeholder="Phone"/><br>
+        <input class="order-input" type="text" title="Address" placeholder="Address"/><br>
+        <div class="order-proceed button" onclick="showOrderMessage()">Proceed order</div>
     </div>
 {% endblock %}

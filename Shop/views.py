@@ -7,7 +7,7 @@ from Shop.models import Metal, Jewel
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 
-card = []
+cart = []
 filtered_metals = []
 fineness_from = None
 fineness_to = None
@@ -16,7 +16,7 @@ fineness_to = None
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
-    jewels = Jewel.objects.all().filter(~Q(id__in=card))
+    jewels = Jewel.objects.all().filter(~Q(id__in=cart))
     if filtered_metals.__len__() > 0:
         jewels = jewels.filter(metal__id__in=filtered_metals)
     if fineness_from is not None:
@@ -29,7 +29,7 @@ def home(request):
         {
             'title': 'Home Page',
             'year': datetime.now().year,
-            'numberInCard': card.__len__(),
+            'number_in_cart': cart.__len__(),
             'jewels': jewels,
             'metals': Metal.objects.all(),
             'forbidden_metals': filtered_metals,
@@ -48,8 +48,28 @@ def order(request):
         {
             'title': 'Home Page',
             'year': datetime.now().year,
-            'numberInCard': card.__len__(),
-            'jewels': Jewel.objects.all().filter(id__in=card)
+            'number_in_cart': cart.__len__(),
+            'jewels': Jewel.objects.all().filter(id__in=cart)
+        },
+    )
+
+
+@csrf_exempt
+def complete(request):
+    global cart, filtered_metals, fineness_from, fineness_to
+    cart = []
+    filtered_metals = []
+    fineness_from = None
+    fineness_to = None
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'order.html',
+        {
+            'title': 'Home Page',
+            'year': datetime.now().year,
+            'number_in_cart': cart.__len__(),
+            'jewels': Jewel.objects.all().filter(id__in=cart)
         },
     )
 
@@ -58,14 +78,14 @@ def order(request):
 def buy(request):
     assert isinstance(request, HttpRequest)
     jewel_id = request.POST.get('jewel', '')
-    card.append(jewel_id)
+    cart.append(jewel_id)
     return render(
         request,
         'index.html',
         {
             'title': 'Home Page',
             'year': datetime.now().year,
-            'numberInCard': card.__len__(),
+            'numberInCard': cart.__len__(),
             'jewels': Jewel.objects.all()
         },
         RequestContext(request)
@@ -87,7 +107,7 @@ def metal(request):
         {
             'title': 'Home Page',
             'year': datetime.now().year,
-            'numberInCard': card.__len__(),
+            'numberInCard': cart.__len__(),
             'jewels': Jewel.objects.all()
         },
         RequestContext(request)
@@ -115,7 +135,7 @@ def fineness(request):
         {
             'title': 'Home Page',
             'year': datetime.now().year,
-            'numberInCard': card.__len__(),
+            'numberInCard': cart.__len__(),
             'jewels': Jewel.objects.all()
         },
         RequestContext(request)

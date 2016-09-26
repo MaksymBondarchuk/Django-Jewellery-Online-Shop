@@ -7,6 +7,27 @@ body {
     line-height: 1.428571429;
 }
 
+.button {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    cursor: pointer;
+    -webkit-transition: background-color 0.3s;
+    text-align: center;
+
+        background-color: #104a7d;
+    color: white;
+}
+
+.button:hover {
+    background-color: #007ACC;
+}
+
+.button:active {
+    background: black;
+}
 
 /* region Main*/
 .container {
@@ -105,8 +126,6 @@ body {
     margin-bottom: 0;
 }
 
-.customer-data {
-    clear: left;
-}
+
 
 /* endregion Main*/
