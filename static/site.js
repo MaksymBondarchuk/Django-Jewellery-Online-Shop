@@ -28,4 +28,10 @@ function metalChecked(id, item) {
         location.href = 'home';
     });
 }
+
+function finenessChanged(parameter, value) {
+    $.post("fineness", {parameter: parameter, value: value}, function () {
+        location.href = 'home';
+    });
+}
 // endregion Main page

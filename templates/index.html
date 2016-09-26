@@ -3,7 +3,8 @@
 
 {% block content %}
     <div class="filter">
-        Metal<br>
+        <div class="filter-header"><b>Filter</b></div>
+        <b>By metal</b><br>
         {% for metal in metals %}
             {% if metal.id in forbidden_metals %}
                 <input type="checkbox" value="{{ metal.id }}" name="metal" title="123"
@@ -14,9 +15,15 @@
             {% endif %}
         {% endfor %}
         <hr>
-        Fineness<br>
-        From<input type="text" name="from" title="From"><br/>
-        To<input type="text" name="to" title="To"><br/>
+        <b>By fineness</b><br>
+        <div class="text-input">
+            <div class="filter-close" onclick="finenessChanged('from', '')">x</div>
+            From <input type="text" name="from" title="From" onchange="finenessChanged(name, value)"
+                        value="{{ fineness_from }}" align="right"><br/>
+            <div class="filter-close"  onclick="finenessChanged('to', '')">x</div>
+            To <input type="text" name="to" title="To" onchange="finenessChanged(name, value)"
+                      value="{{ fineness_to }}" align="right"><br/>
+        </div>
     </div>
 
     {% for jewel in jewels %}

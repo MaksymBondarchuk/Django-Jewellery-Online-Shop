@@ -7,87 +7,12 @@ body {
     line-height: 1.428571429;
 }
 
-/* region Header */
-.header {
-    background-color: black;
-
-    width: 100%;
-
-    position: fixed;
-    right: 0;
-    left: 0;
-    top: 0;
-
-    min-height: 50px;
-
-    clear: both;
-    box-sizing: border-box;
-    z-index: 10;
-}
-
-.header-item {
-    color: white;
-    -webkit-transition: background-color 0.4s;
-    border-left: solid #222 1px;
-    border-right: solid #222 1px;
-    float: left;
-    padding: 15px 15px;
-    font-size: 20px;
-    line-height: 20px;
-    text-decoration: none;
-}
-
-.header-item:hover {
-    background-color: #104a7d;
-}
-
-/* endregion Header */
-
-/* region Filter */
-.filter {
-    background-color: #eaeaea;
-
-    float: left;
-
-    max-width: 300px;
-    margin-right: auto;
-    margin-left: 0;
-    position: fixed;
-    /*right: 0;*/
-    left: 0;
-    /*top: 50px;*/
-
-    /*min-height: 30px;*/
-
-    clear: both;
-    box-sizing: border-box;
-    z-index: 10;
-}
-
-.filter-item {
-    color: black;
-    -webkit-transition: background-color 0.4s;
-    border-left: solid #222 1px;
-    border-right: solid #222 1px;
-    float: left;
-    padding: 5px 5px;
-    font-size: 16px;
-    /*line-height: 20px;*/
-    text-decoration: none;
-}
-
-.filter-item:hover {
-    background-color: #104a7d;
-}
-
-/* endregion Filter */
 
 /* region Main*/
 .container {
     max-width: 1200px;
     margin-right: auto;
     margin-left: auto;
-    position: relative
 }
 
 .right {
@@ -101,7 +26,8 @@ body {
 }
 
 .store-item {
-    float: left;
+    display: inline-block;
+    /*float: left;*/
     height: 400px;
     width: 250px;
     margin: 10px;
@@ -114,7 +40,7 @@ body {
 .store-item:hover {
     overflow: visible;
 
-    z-index: 6;
+    z-index: 11;
 }
 
 .inner {
@@ -124,7 +50,6 @@ body {
 }
 
 .inner:hover {
-    /*height: 450px;*/
     z-index: 6;
     background-color: #eaeaea;
     transform: scale(1.1, 1.1);
@@ -155,6 +80,8 @@ body {
     width: 200px;
     float: left;
     background-color: #eaeaea;
+
+    font-family: Calibri, sans-serif;
 }
 
 .store-item-button {
@@ -183,114 +110,3 @@ body {
 }
 
 /* endregion Main*/
-
-.footer-outer {
-    padding-top: 80px;
-    height: 200px;
-    background: white;
-}
-
-.footer {
-    clear: left;
-
-    background: #f2f2f2;
-
-    width: 100%;
-
-    display: table;
-    /*margin: 0 auto;*/
-    right: 0;
-    left: 0;
-
-    /*position: fixed;*/
-    bottom: 0;
-}
-
-/* region ZoomedImage */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
-
-    z-index: 11;
-}
-
-/* Modal Content (image) */
-.modal-content {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-}
-
-/* Caption of Modal Image */
-#caption {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
-    color: #ccc;
-    padding: 10px 0;
-    height: 150px;
-}
-
-/* Add Animation */
-.modal-content, #caption {
-    -webkit-animation-name: zoom;
-    -webkit-animation-duration: 0.6s;
-    animation-name: zoom;
-    animation-duration: 0.6s;
-}
-
-@-webkit-keyframes zoom {
-    from {
-        -webkit-transform: scale(0)
-    }
-    to {
-        -webkit-transform: scale(1)
-    }
-}
-
-@keyframes zoom {
-    from {
-        transform: scale(0.1)
-    }
-    to {
-        transform: scale(1)
-    }
-}
-
-/* The Close Button */
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.close:hover,
-.close:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px) {
-    .modal-content {
-        width: 100%;
-    }
-}
-
-/*endregion ZoomedImage*/
