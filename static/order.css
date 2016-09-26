@@ -59,8 +59,19 @@
 
 .store-item-order:hover {
     overflow: visible;
-    z-index: 11;
+}
 
+.inner-order {
+    position: absolute;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-transition: transform 0.4s;
+    z-index: 11;
+    background: white;
+    line-height: 1;
+
+}
+
+.inner-order:hover {
     transform: scale(1.1, 1.1);
 }
 
@@ -68,7 +79,7 @@
     float: left;
     height: 100px;
     width: 100px;
-    display: block;
+    /*display: block;*/
     /*margin-right: 10px;*/
     /*margin: auto;*/
     -webkit-transition: opacity 0.4s;
