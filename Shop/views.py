@@ -27,7 +27,6 @@ def home(request):
         request,
         'index.html',
         {
-            'title': 'Home Page',
             'year': datetime.now().year,
             'number_in_cart': cart.__len__(),
             'jewels': jewels,
@@ -46,7 +45,6 @@ def order(request):
         request,
         'order.html',
         {
-            'title': 'Home Page',
             'year': datetime.now().year,
             'number_in_cart': cart.__len__(),
             'jewels': Jewel.objects.all().filter(id__in=cart)
@@ -66,7 +64,6 @@ def complete(request):
         request,
         'order.html',
         {
-            'title': 'Home Page',
             'year': datetime.now().year,
             'number_in_cart': cart.__len__(),
             'jewels': Jewel.objects.all().filter(id__in=cart)
@@ -83,7 +80,6 @@ def buy(request):
         request,
         'index.html',
         {
-            'title': 'Home Page',
             'year': datetime.now().year,
             'numberInCard': cart.__len__(),
             'jewels': Jewel.objects.all()
@@ -101,13 +97,13 @@ def remove(request):
         request,
         'index.html',
         {
-            'title': 'Home Page',
             'year': datetime.now().year,
             'numberInCard': cart.__len__(),
             'jewels': Jewel.objects.all()
         },
         RequestContext(request)
     )
+
 
 @csrf_exempt
 def metal(request):
@@ -122,7 +118,6 @@ def metal(request):
         request,
         'index.html',
         {
-            'title': 'Home Page',
             'year': datetime.now().year,
             'numberInCard': cart.__len__(),
             'jewels': Jewel.objects.all()
@@ -150,7 +145,6 @@ def fineness(request):
         request,
         'index.html',
         {
-            'title': 'Home Page',
             'year': datetime.now().year,
             'numberInCard': cart.__len__(),
             'jewels': Jewel.objects.all()
