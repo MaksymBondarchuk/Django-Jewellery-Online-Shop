@@ -32,4 +32,5 @@ urlpatterns = [
     url(r'^fineness', Shop.views.fineness),
 
     url(r'^buy', Shop.views.buy),
+    url(r'^remove', Shop.views.remove),
 ]

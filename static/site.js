@@ -46,6 +46,12 @@ function buy(id) {
     });
 }
 
+function remove(id) {
+    $.post("remove", {jewel: id}, function () {
+        location.href = 'order';
+    });
+}
+
 function metalChecked(id, item) {
     $.post("metal", {metal: id, state: item.checked}, function () {
         location.href = 'home';

@@ -93,6 +93,23 @@ def buy(request):
 
 
 @csrf_exempt
+def remove(request):
+    assert isinstance(request, HttpRequest)
+    jewel_id = request.POST.get('jewel', '')
+    cart.remove(jewel_id)
+    return render(
+        request,
+        'index.html',
+        {
+            'title': 'Home Page',
+            'year': datetime.now().year,
+            'numberInCard': cart.__len__(),
+            'jewels': Jewel.objects.all()
+        },
+        RequestContext(request)
+    )
+
+@csrf_exempt
 def metal(request):
     assert isinstance(request, HttpRequest)
     metal_id = uuid.UUID(request.POST.get('metal', ''))

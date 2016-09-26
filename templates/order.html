@@ -2,25 +2,29 @@
 {% load static %}
 
 {% block content %}
-    {% for jewel in jewels %}
-        <div class="store-item">
-            <div class="inner">
-                <img src="Images/{{ jewel.image }}" alt="{{ jewel.name }}" class="store-image"
-                     onclick="zoomImage(this)"/>
-                <div class="store-item-title"><b>{{ jewel.name }}</b></div>
-                <div class="store-item-button" onclick="buy('{{ jewel.id }}')">Buy</div>
-                <p class="description"><b>Made from </b>{{ jewel.metal.name }}<br/>
-                    <b>Fineness: </b>{{ jewel.fineness }}<br/>
-                    {{ jewel.description }}</p>
-            </div>
-        </div>
-    {% endfor %}
-
     <div class="customer-data">
+        <p class="text-order">Please fill the information and press button below</p>
         <input class="order-input" type="text" title="Name" placeholder="Name"/><br>
         <input class="order-input" type="text" title="Email" placeholder="Email"/><br>
         <input class="order-input" type="text" title="Phone" placeholder="Phone"/><br>
         <input class="order-input" type="text" title="Address" placeholder="Address"/><br>
         <div class="order-proceed button" onclick="showOrderMessage()">Proceed order</div>
     </div>
+
+    <p class="text-order">By the way your cart is looking like:</p>
+    {% for jewel in jewels %}
+        <div class="store-item-order">
+            {#            <div class="inner-order">#}
+            <img src="Images/{{ jewel.image }}" alt="{{ jewel.name }}" class="store-image-order"
+                 onclick="zoomImage(this)"/>
+            <div class="store-item-title-order"><b>{{ jewel.name }}</b></div>
+            <div class="store-item-button-order" onclick="remove('{{ jewel.id }}')">Remove</div>
+            <p class="description-order"><b>Made from </b>{{ jewel.metal.name }}<br/>
+                <b>Fineness: </b>{{ jewel.fineness }}<br/>
+                {{ jewel.description }}</p>
+            {#            </div>#}
+        </div>
+    {% endfor %}
+
+
 {% endblock %}

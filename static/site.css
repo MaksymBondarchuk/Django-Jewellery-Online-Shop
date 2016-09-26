@@ -48,7 +48,6 @@ body {
 
 .store-item {
     display: inline-block;
-    /*float: left;*/
     height: 400px;
     width: 250px;
     margin: 10px;
@@ -60,7 +59,6 @@ body {
 
 .store-item:hover {
     overflow: visible;
-
     z-index: 11;
 }
 
