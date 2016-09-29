@@ -63,8 +63,7 @@ def complete(request):
             global cart, filtered_metals, fineness_from, fineness_to
 
             o = Order(name=form.cleaned_data['name'], email=form.cleaned_data['email'],
-                      phone=form.cleaned_data['phone'], address=form.cleaned_data['address'],)
-                      # session=uuid.UUID(request.session))
+                      phone=form.cleaned_data['phone'], address=form.cleaned_data['address'])
             o.save()
 
             for item in cart:
