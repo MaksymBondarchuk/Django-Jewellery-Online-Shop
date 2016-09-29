@@ -34,7 +34,7 @@ class Order(models.Model):
     email = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
     address = models.CharField(max_length=250)
-    date = models.DateTimeField(auto_now_add=True, blank=True)
+    date = models.DateTimeField(auto_now_add=False, auto_now=True)
 
     def __unicode__(self):
         return self.name

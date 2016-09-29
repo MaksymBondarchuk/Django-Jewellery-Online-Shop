@@ -58,17 +58,13 @@ def order(request):
 @csrf_exempt
 def complete(request):
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
         form = OrderForm(request.POST)
-        # check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
             global cart, filtered_metals, fineness_from, fineness_to
 
             o = Order(name=form.cleaned_data['name'], email=form.cleaned_data['email'],
-                      phone=form.cleaned_data['phone'], address=form.cleaned_data['address'])
+                      phone=form.cleaned_data['phone'], address=form.cleaned_data['address'],)
+                      # session=uuid.UUID(request.session))
             o.save()
 
             for item in cart:
