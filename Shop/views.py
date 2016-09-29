@@ -1,11 +1,13 @@
-import uuid
 from django.shortcuts import render
 from django.http import HttpRequest
 from django.template import RequestContext
-from datetime import datetime
-from Shop.models import Metal, Jewel
+from Shop.models import *
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
+from Shop.forms import OrderForm
+from django.http import HttpResponseRedirect
+from datetime import datetime
+
 
 cart = []
 filtered_metals = []
@@ -17,7 +19,7 @@ def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
     jewels = Jewel.objects.all().filter(~Q(id__in=cart))
-    if filtered_metals.__len__() > 0:
+    if filtered_metals:
         jewels = jewels.filter(metal__id__in=filtered_metals)
     if fineness_from is not None:
         jewels = jewels.filter(fineness__gte=fineness_from)
@@ -41,6 +43,7 @@ def home(request):
 def order(request):
     """Renders the order page."""
     assert isinstance(request, HttpRequest)
+    form = OrderForm(request.POST)
     return render(
         request,
         'order.html',
@@ -54,12 +57,31 @@ def order(request):
 
 @csrf_exempt
 def complete(request):
-    global cart, filtered_metals, fineness_from, fineness_to
-    cart = []
-    filtered_metals = []
-    fineness_from = None
-    fineness_to = None
-    assert isinstance(request, HttpRequest)
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = OrderForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            global cart, filtered_metals, fineness_from, fineness_to
+
+            o = Order(name=form.cleaned_data['name'], email=form.cleaned_data['email'],
+                      phone=form.cleaned_data['phone'], address=form.cleaned_data['address'])
+            o.save()
+
+            for item in cart:
+                oi = OrderItem(order=o, item=Jewel.objects.get(pk=item))
+                oi.save()
+
+            cart = []
+            filtered_metals = []
+            fineness_from = None
+            fineness_to = None
+
+            return HttpResponseRedirect('/home')
+
     return render(
         request,
         'order.html',
@@ -74,7 +96,7 @@ def complete(request):
 @csrf_exempt
 def buy(request):
     assert isinstance(request, HttpRequest)
-    jewel_id = request.POST.get('jewel', '')
+    jewel_id = uuid.UUID(request.POST.get('jewel', ''))
     cart.append(jewel_id)
     return render(
         request,

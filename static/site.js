@@ -65,8 +65,8 @@ function finenessChanged(parameter, value) {
 }
 
 function completeOrder() {
-    $.post("complete", {}, function () {
-        location.href = 'home';
-    });
+    // $.post("complete", {}, function () {
+    //     location.href = 'home';
+    // });
 }
 // endregion Main page

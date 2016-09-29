@@ -1,0 +1,111 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Python template
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# IPython Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
+# dotenv
+.env
+
+# virtualenv
+venv/
+ENV/
+
+# Spyder project settings
+.spyderproject
+
+# Rope project settings
+.ropeproject
+
+.gitignore
+.idea/
+Lab1/__pycache__/
+Report.docx
+Shop/__pycache__/
+Shop/migrations/0004_auto_20160919_1003.py
+Shop/migrations/0005_auto_20160919_1015.py
+Shop/migrations/0006_auto_20160919_1016.py
+Shop/migrations/0007_auto_20160924_1332.py
+Shop/migrations/0008_auto_20160924_1352.py
+Shop/migrations/0009_jewel_fineness.py
+Shop/migrations/0010_jewel_description.py
+Shop/migrations/0011_order_orderitem.py
+Shop/migrations/0012_auto_20160927_1139.py
+Shop/migrations/0013_auto_20160927_1144.py
+Shop/migrations/0014_order_date.py
+Shop/migrations/0015_auto_20160928_2100.py
+Shop/migrations/__pycache__/
+~WRL4010.tmp

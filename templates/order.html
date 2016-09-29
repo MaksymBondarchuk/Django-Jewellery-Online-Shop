@@ -2,14 +2,32 @@
 {% load static %}
 
 {% block content %}
-    <div class="customer-data">
-        <p class="text-order">Please fill the information and press button below</p>
-        <input class="order-input" type="text" title="Name" placeholder="Name"/><br>
-        <input class="order-input" type="text" title="Email" placeholder="Email"/><br>
-        <input class="order-input" type="text" title="Phone" placeholder="Phone"/><br>
-        <input class="order-input" type="text" title="Address" placeholder="Address"/><br>
-        <div class="order-proceed button" onclick="showOrderMessage()">Proceed order</div>
-    </div>
+    <form action="/complete" method="post">
+        {% csrf_token %}
+        {#        {{ form }}#}
+        <div class="customer-data">
+            {#            <p class="text-order">Please fill the information and press button below</p>#}
+            {#            {{ form.name.errors }}#}
+            {#            {{ form.name }}#}
+            {#            {{ form.email.errors }}#}
+            {#            {% if form.email.errors %}#}
+            {#                <ol>#}
+            {#                    {% for error in form.email.errors %}#}
+            {#                        <li><strong>{{ error|escape }}</strong></li>#}
+            {#                    {% endfor %}#}
+            {#                </ol>#}
+            {#            {% endif %}#}
+            {#            {{ form.email }}#}
+            {#            {{ form.phone }}#}
+            {#            {{ form.address }}#}
+            <input name="name" class="order-input" type="text" title="Name" placeholder="Name"/><br>
+            <input name="email" class="order-input" type="text" title="Email" placeholder="Email"/><br>
+            <input name="phone" class="order-input" type="text" title="Phone" placeholder="Phone"/><br>
+            <input name="address" class="order-input" type="text" title="Address" placeholder="Address"/><br>
+{#            <div class="order-proceed button" onclick="showOrderMessage()">Proceed order</div>#}
+            <input type="submit" class="order-proceed button" value="Proceed">
+        </div>
+    </form>
 
     <p class="text-order">By the way your cart is looking like:</p>
     {% for jewel in jewels %}

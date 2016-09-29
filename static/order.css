@@ -32,6 +32,7 @@
     font-size: 25px;
     background-color: #104a7d;
     color: white;
+    border: 0;
 }
 
 .order-proceed:hover {
