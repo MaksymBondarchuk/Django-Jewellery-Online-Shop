@@ -32,7 +32,7 @@
                 <img src="Images/{{ jewel.image }}" alt="{{ jewel.name }}" class="store-image"
                      onclick="zoomImage(this)"/>
                 <div class="store-item-title"><b>{{ jewel.name }}</b></div>
-                <div class="store-item-button" onclick="buy('{{ jewel.id }}')">Buy</div>
+                <a class="store-item-button" href="buy/{{ jewel.id }}">Buy</a>
                 <p class="description"><b>Made from </b>{{ jewel.metal.name }}<br/>
                     <b>Fineness: </b>{{ jewel.fineness }}<br/>
                     {{ jewel.description }}</p>

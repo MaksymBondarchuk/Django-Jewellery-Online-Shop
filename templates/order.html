@@ -36,7 +36,7 @@
                 <img src="Images/{{ jewel.image }}" alt="{{ jewel.name }}" class="store-image-order"
                      onclick="zoomImage(this)"/>
                 <div class="store-item-title-order"><b>{{ jewel.name }}</b></div>
-                <div class="store-item-button-order" onclick="remove('{{ jewel.id }}')">Remove</div>
+                <a class="store-item-button-order" href="remove/{{ jewel.id }}">Remove</a>
                 <p class="description-order"><b>Made from </b>{{ jewel.metal.name }}<br/>
                     <b>Fineness: </b>{{ jewel.fineness }}<br/>
                     {{ jewel.description }}</p>

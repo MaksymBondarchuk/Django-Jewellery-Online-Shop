@@ -21,7 +21,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     url(r'^$', Shop.views.home),
-    url(r'^home/', Shop.views.home),
     url(r'^home', Shop.views.home),
 
     url(r'^order', Shop.views.order),
@@ -31,6 +30,6 @@ urlpatterns = [
     url(r'^metal', Shop.views.metal),
     url(r'^fineness', Shop.views.fineness),
 
-    url(r'^buy', Shop.views.buy),
-    url(r'^remove', Shop.views.remove),
+    url(r'^buy/([^/]+)', Shop.views.buy),
+    url(r'^remove/([^/]+)', Shop.views.remove),
 ]

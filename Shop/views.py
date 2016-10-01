@@ -8,8 +8,7 @@ from Shop.forms import OrderForm
 from django.http import HttpResponseRedirect
 from datetime import datetime
 
-
-cart = []
+# cart = []
 filtered_metals = []
 fineness_from = None
 fineness_to = None
@@ -18,7 +17,13 @@ fineness_to = None
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
-    jewels = Jewel.objects.all().filter(~Q(id__in=cart))
+    try:
+        cart_id = request.session['cart_id']
+    except KeyError:
+        cart_id = None
+    # cart = Cart.objects.get(pk=cart_id)
+    jewels = Jewel.objects.all().filter(
+        ~Q(id__in=CartItem.objects.all().filter(cart_id=cart_id).values_list('item_id')))
     if filtered_metals:
         jewels = jewels.filter(metal__id__in=filtered_metals)
     if fineness_from is not None:
@@ -30,7 +35,7 @@ def home(request):
         'index.html',
         {
             'year': datetime.now().year,
-            'number_in_cart': cart.__len__(),
+            'number_in_cart': CartItem.objects.all().filter(cart_id=cart_id).__len__(),
             'jewels': jewels,
             'metals': Metal.objects.all(),
             'forbidden_metals': filtered_metals,
@@ -44,13 +49,15 @@ def order(request):
     """Renders the order page."""
     assert isinstance(request, HttpRequest)
     form = OrderForm(request.POST)
+    cart_id = request.session['cart_id']
     return render(
         request,
         'order.html',
         {
             'year': datetime.now().year,
-            'number_in_cart': cart.__len__(),
-            'jewels': Jewel.objects.all().filter(id__in=cart)
+            'number_in_cart': CartItem.objects.all().filter(cart_id=cart_id).__len__(),
+            'jewels': Jewel.objects.all().filter(
+                id__in=CartItem.objects.all().filter(cart_id=cart_id).values_list('item_id'))
         },
     )
 
@@ -89,37 +96,29 @@ def complete(request):
 
 
 @csrf_exempt
-def buy(request):
+def buy(request, jewel_id):
     assert isinstance(request, HttpRequest)
-    jewel_id = uuid.UUID(request.POST.get('jewel', ''))
-    cart.append(jewel_id)
-    return render(
-        request,
-        'index.html',
-        {
-            'year': datetime.now().year,
-            'numberInCard': cart.__len__(),
-            'jewels': Jewel.objects.all()
-        },
-        RequestContext(request)
-    )
+    # jewel_id = uuid.UUID(request.POST.get('jewel', ''))
+    try:
+        cart_id = request.session['cart_id']
+    except KeyError:
+        new_cart = Cart()
+        new_cart.save()
+        cart_id = new_cart.id
+        request.session['cart_id'] = cart_id.hex
+
+    cart_item = CartItem(cart_id=cart_id, item_id=jewel_id)
+    cart_item.save()
+
+    return HttpResponseRedirect('/home')
 
 
 @csrf_exempt
-def remove(request):
+def remove(request, jewel_id):
     assert isinstance(request, HttpRequest)
-    jewel_id = request.POST.get('jewel', '')
-    cart.remove(jewel_id)
-    return render(
-        request,
-        'index.html',
-        {
-            'year': datetime.now().year,
-            'numberInCard': cart.__len__(),
-            'jewels': Jewel.objects.all()
-        },
-        RequestContext(request)
-    )
+    cart_id = request.session['cart_id']
+    CartItem.objects.get(cart_id=cart_id, item_id=jewel_id).delete()
+    return HttpResponseRedirect('/order')
 
 
 @csrf_exempt

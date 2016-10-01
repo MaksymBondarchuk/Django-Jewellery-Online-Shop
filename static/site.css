@@ -7,6 +7,10 @@ body {
     line-height: 1.428571429;
 }
 
+a {
+    text-decoration: none;
+}
+
 .button {
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -17,7 +21,7 @@ body {
     -webkit-transition: background-color 0.3s;
     text-align: center;
 
-        background-color: #104a7d;
+    background-color: #104a7d;
     color: white;
 }
 
@@ -123,7 +127,5 @@ body {
 .description {
     margin-bottom: 0;
 }
-
-
 
 /* endregion Main*/

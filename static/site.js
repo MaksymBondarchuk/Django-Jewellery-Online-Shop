@@ -40,33 +40,15 @@ function closeModal() {
 // endregion
 
 // region Main page
-function buy(id) {
-    $.post("buy", {jewel: id}, function () {
-        location.href = 'home';
-    });
-}
-
 function remove(id) {
-    $.post("remove", {jewel: id}, function () {
-        location.href = 'order';
-    });
+    $.post("remove", {jewel: id});
 }
 
 function metalChecked(id, item) {
-    $.post("metal", {metal: id, state: item.checked}, function () {
-        location.href = 'home';
-    });
+    $.post("metal", {metal: id, state: item.checked});
 }
 
 function finenessChanged(parameter, value) {
-    $.post("fineness", {parameter: parameter, value: value}, function () {
-        location.href = 'home';
-    });
-}
-
-function completeOrder() {
-    // $.post("complete", {}, function () {
-    //     location.href = 'home';
-    // });
+    $.post("fineness", {parameter: parameter, value: value});
 }
 // endregion Main page
