@@ -44,7 +44,7 @@ class CartItem(models.Model):
 class Order(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100)
     phone = models.CharField(max_length=20)
     address = models.CharField(max_length=250)
     date = models.DateTimeField(auto_now_add=False, auto_now=True)
@@ -65,3 +65,20 @@ class OrderItem(models.Model):
 
     def __unicode__(self):
         return self.item.name
+
+
+class CartFilter(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    fineness_from = models.IntegerField(null=True)
+    fineness_to = models.IntegerField(null=True)
+    price_from = models.IntegerField(null=True)
+    price_to = models.IntegerField(null=True)
+    weight_from = models.IntegerField(null=True)
+    weight_to = models.IntegerField(null=True)
+
+
+class CartMetalFilter(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    metal = models.ForeignKey(Metal, on_delete=models.CASCADE)

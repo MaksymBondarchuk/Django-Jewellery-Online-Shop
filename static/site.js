@@ -40,10 +40,6 @@ function closeModal() {
 // endregion
 
 // region Main page
-function remove(id) {
-    $.post("remove", {jewel: id});
-}
-
 function metalChecked(id, item) {
     $.post("metal", {metal: id, state: item.checked});
 }
