@@ -20,12 +20,25 @@ class Jewel(models.Model):
     fineness = models.IntegerField(default=0)
     image = models.ImageField(upload_to='Images')
     description = models.CharField(max_length=1000, default='')
+    price = models.DecimalField(default=0, max_digits=1000, decimal_places=2)
+    weight = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.name
 
     def __str__(self):
         return self.name
+
+
+class Cart(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    price_total = models.DecimalField(default=0, max_digits=1000, decimal_places=2)
+
+
+class CartItem(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    item = models.ForeignKey(Jewel, on_delete=models.CASCADE)
 
 
 class Order(models.Model):
@@ -35,6 +48,8 @@ class Order(models.Model):
     phone = models.CharField(max_length=20)
     address = models.CharField(max_length=250)
     date = models.DateTimeField(auto_now_add=False, auto_now=True)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True)
+    price_total = models.DecimalField(default=0, max_digits=1000, decimal_places=2)
 
     def __unicode__(self):
         return self.name
