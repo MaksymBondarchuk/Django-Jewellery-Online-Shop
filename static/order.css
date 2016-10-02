@@ -3,31 +3,41 @@
     padding-bottom: 50px;
 }
 
-.order-input {
+.order-input, .order-input-error {
     /*background-color: #eaeaea;*/
     border: 0;
     font-size: 25px;
     width: 500px;
     border-bottom: 2px solid black;
-    margin-bottom: 10px;
+    margin-top: 10px;
     -webkit-transition: transform 0.4s;
 
 }
 
-.order-input:hover {
+.order-input-error {
+    border-bottom: 2px solid #C00000;
+}
+
+.order-input:hover, .order-input-error:hover {
     border-bottom: 2px solid #104a7d;
     color: #104a7d;
     transform: scale(1.1, 1.1);
 
 }
 
-.order-input:focus {
+.order-input:focus, .order-input-error:focus {
     outline: 0;
     border-bottom: 2px solid #007ACC;
     color: #007ACC;
 }
 
+.input-errors {
+    color: #C00000;
+    font-size: 12px;
+}
+
 .order-proceed {
+    margin-top: 20px;
     width: 200px;
     font-size: 25px;
     background-color: #104a7d;

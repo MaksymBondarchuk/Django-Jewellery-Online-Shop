@@ -86,6 +86,7 @@ class OrderItem(models.Model):
     created_on = models.DateTimeField(auto_now_add=False, auto_now=True)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     item = models.ForeignKey(Jewel, on_delete=models.CASCADE)
+    number = models.IntegerField(default=1)
 
     def __unicode__(self):
         return self.item.name

@@ -2,29 +2,61 @@
 {% load static %}
 
 {% block content %}
-    <form action="/complete" method="post">
+    <form action="complete" method="post">
         {% csrf_token %}
         {#        {{ form }}#}
         <div class="customer-data">
-            {#            <p class="text-order">Please fill the information and press button below</p>#}
-            {#            {{ form.name.errors }}#}
-            {#            {{ form.name }}#}
-            {#            {{ form.email.errors }}#}
-            {#            {% if form.email.errors %}#}
-            {#                <ol>#}
-            {#                    {% for error in form.email.errors %}#}
-            {#                        <li><strong>{{ error|escape }}</strong></li>#}
-            {#                    {% endfor %}#}
-            {#                </ol>#}
-            {#            {% endif %}#}
-            {#            {{ form.email }}#}
-            {#            {{ form.phone }}#}
-            {#            {{ form.address }}#}
-            <input name="name" class="order-input" type="text" title="Name" placeholder="Name"/><br>
-            <input name="email" class="order-input" type="text" title="Email" placeholder="Email"/><br>
-            <input name="phone" class="order-input" type="text" title="Phone" placeholder="Phone"/><br>
-            <input name="address" class="order-input" type="text" title="Address" placeholder="Address"/><br>
-{#            <div class="order-proceed button" onclick="showOrderMessage()">Proceed order</div>#}
+            {% if form.name.errors %}
+                <input name="name" class="order-input-error" type="text" title="Name" placeholder="Name"
+                       value="{{ form.name.value }}"/><br>
+                <div class="input-errors">
+                    {% for error in form.name.errors %}
+                        * {{ error }}<br>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <input name="name" class="order-input" type="text" title="Name" placeholder="Name"
+                       value="{{ form.name.value }}"/><br>
+            {% endif %}
+
+            {% if form.email.errors %}
+                <input name="email" class="order-input-error" type="text" title="Email" placeholder="Email"
+                       value="{{ form.email.value }}"/><br>
+                <div class="input-errors">
+                    {% for error in form.email.errors %}
+                        * {{ error }}<br>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <input name="email" class="order-input" type="text" title="Email" placeholder="Email"
+                       value="{{ form.email.value }}"/><br>
+            {% endif %}
+
+            {% if form.phone.errors %}
+                <input name="phone" class="order-input-error" type="text" title="Phone" placeholder="Phone"
+                       value="{{ form.phone.value }}"/><br>
+                <div class="input-errors">
+                    {% for error in form.phone.errors %}
+                        * {{ error }}<br>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <input name="phone" class="order-input" type="text" title="Phone" placeholder="Phone"
+                       value="{{ form.phone.value }}"/><br>
+            {% endif %}
+
+            {% if form.address.errors %}
+                <input name="address" class="order-input-error" type="text" title="Address" placeholder="Address"
+                       value="{{ form.address.value }}"/><br>
+                <div class="input-errors">
+                    {% for error in form.address.errors %}
+                        * {{ error }}<br>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <input name="address" class="order-input" type="text" title="Address" placeholder="Address"
+                       value="{{ form.address.value }}"/><br>
+            {% endif %}
             <input type="submit" class="order-proceed button" value="Proceed">
         </div>
     </form>
@@ -36,7 +68,7 @@
                 <img src="Images/{{ cart_item.item.image }}" alt="{{ cart_item.item.name }}" class="store-image-order"
                      onclick="zoomImage(this)"/>
                 <div class="store-item-title-order"><b>{{ cart_item.item.name }} ({{ cart_item.number }})
-                - ${{ cart_item.price }}</b></div>
+                    - ${{ cart_item.price }}</b></div>
                 <a class="store-item-button-order" href="remove/{{ cart_item.item.id }}">Remove</a>
                 <p class="description-order"><b>Made from </b>{{ cart_item.item.metal.name }}<br/>
                     <b>Fineness: </b>{{ cart_item.item.fineness }}<br/>

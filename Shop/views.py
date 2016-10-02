@@ -89,7 +89,8 @@ def order(request):
             'year': datetime.now().year,
             'number_in_cart': cart_items.__len__(),
             'cart_items': cart_items,
-            'total_price': cart.price_total
+            'total_price': cart.price_total,
+            'form': None
         }
     )
 
@@ -101,22 +102,32 @@ def complete(request):
 
     cart_id = request.session['cart_id']
     cart = Cart.objects.get(pk=cart_id)
+    cart_items = CartItem.objects.all().filter(cart_id=cart_id)
     if form.is_valid():
-        cart_items = CartItem.objects.all().filter(cart_id=cart_id)
         o = Order(name=form.cleaned_data['name'], email=form.cleaned_data['email'],
                   phone=form.cleaned_data['phone'], address=form.cleaned_data['address'],
                   price_total=cart.price_total)
         o.save()
 
         for cart_item in cart_items:
-            oi = OrderItem(order=o, item=Jewel.objects.get(pk=cart_item.item.id))
+            oi = OrderItem(order=o, item=Jewel.objects.get(pk=cart_item.item.id), number=cart_item.number)
             oi.save()
 
         cart.delete()
 
         return HttpResponseRedirect('/home')
 
-    return HttpResponseRedirect('/order')
+    return render(
+        request,
+        'order.html',
+        {
+            'year': datetime.now().year,
+            'number_in_cart': cart_items.__len__(),
+            'cart_items': cart_items,
+            'total_price': cart.price_total,
+            'form': form
+        }
+    )
 
 
 @csrf_exempt
