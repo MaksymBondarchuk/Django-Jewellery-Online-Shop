@@ -32,7 +32,7 @@ class Jewel(models.Model):
 
 class Cart(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    price_total = models.DecimalField(default=0, max_digits=1000, decimal_places=2)
+    price_total = models.IntegerField(default=0)
 
 
 class CartItem(models.Model):
@@ -41,6 +41,23 @@ class CartItem(models.Model):
     item = models.ForeignKey(Jewel, on_delete=models.CASCADE)
     number = models.IntegerField(default=1)
     price = models.IntegerField(default=0)
+
+
+class CartFilter(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    fineness_from = models.IntegerField(null=True)
+    fineness_to = models.IntegerField(null=True)
+    price_from = models.IntegerField(null=True)
+    price_to = models.IntegerField(null=True)
+    weight_from = models.IntegerField(null=True)
+    weight_to = models.IntegerField(null=True)
+
+
+class CartMetalFilter(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    metal = models.ForeignKey(Metal, on_delete=models.CASCADE)
 
 
 class Order(models.Model):
@@ -67,20 +84,3 @@ class OrderItem(models.Model):
 
     def __unicode__(self):
         return self.item.name
-
-
-class CartFilter(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    fineness_from = models.IntegerField(null=True)
-    fineness_to = models.IntegerField(null=True)
-    price_from = models.IntegerField(null=True)
-    price_to = models.IntegerField(null=True)
-    weight_from = models.IntegerField(null=True)
-    weight_to = models.IntegerField(null=True)
-
-
-class CartMetalFilter(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    metal = models.ForeignKey(Metal, on_delete=models.CASCADE)

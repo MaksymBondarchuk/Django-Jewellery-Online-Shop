@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpRequest
-from django.template import RequestContext
 from Shop.models import *
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
@@ -8,10 +7,17 @@ from Shop.forms import OrderForm
 from django.http import HttpResponseRedirect
 from datetime import datetime
 from decimal import Decimal
-from django import template
 from django.db.models import Sum
 
-register = template.Library()
+
+def create_cart():
+    new_cart = Cart()
+    new_cart.save()
+    cart_id = new_cart.id
+
+    cart_filter = CartFilter(cart_id=cart_id)
+    cart_filter.save()
+    return cart_id
 
 
 def home(request):
@@ -20,14 +26,13 @@ def home(request):
     try:
         cart_id = request.session['cart_id']
     except KeyError:
-        new_cart = Cart()
-        new_cart.save()
-        cart_id = new_cart.id
-        request.session['cart_id'] = cart_id.hex
+        cart_id = create_cart().hex
+        request.session['cart_id'] = cart_id
 
-        cart_filter = CartFilter(cart_id=cart_id)
-        cart_filter.save()
-    # cart = Cart.objects.get(pk=cart_id)
+    if Cart.objects.get(pk=cart_id) is None:
+        cart_id = create_cart().hex
+        request.session['cart_id'] = cart_id
+
     jewels = Jewel.objects.all().filter(
         ~Q(id__in=CartItem.objects.all().filter(cart_id=cart_id).values_list('item_id')))
 
@@ -75,61 +80,58 @@ def home(request):
 def order(request):
     """Renders the order page."""
     assert isinstance(request, HttpRequest)
-    form = OrderForm(request.POST)
     cart_id = request.session['cart_id']
+    cart = Cart.objects.get(pk=cart_id)
+    cart_items = CartItem.objects.all().filter(cart_id=cart_id)
     return render(
         request,
         'order.html',
         {
             'year': datetime.now().year,
-            'number_in_cart': CartItem.objects.all().filter(cart_id=cart_id).__len__(),
-            'cart_items': CartItem.objects.all().filter(cart_id=cart_id),
-            'total_price': CartItem.objects.all().filter(cart_id=cart_id).aggregate(Sum('price'))
+            'number_in_cart': cart_items.__len__(),
+            'cart_items': cart_items,
+            'total_price': cart.price_total
         }
     )
 
 
 @csrf_exempt
 def complete(request):
-    if request.method == 'POST':
-        form = OrderForm(request.POST)
-        if form.is_valid():
-            global cart, filtered_metals, fineness_from, fineness_to
+    # if request.method == 'POST':
+    form = OrderForm(request.POST)
 
-            o = Order(name=form.cleaned_data['name'], email=form.cleaned_data['email'],
-                      phone=form.cleaned_data['phone'], address=form.cleaned_data['address'])
-            o.save()
+    cart_id = request.session['cart_id']
+    cart = Cart.objects.get(pk=cart_id)
+    if form.is_valid():
+        cart_items = CartItem.objects.all().filter(cart_id=cart_id)
+        o = Order(name=form.cleaned_data['name'], email=form.cleaned_data['email'],
+                  phone=form.cleaned_data['phone'], address=form.cleaned_data['address'],
+                  cart=cart_id, price_total=cart.price_total)
+        o.save()
 
-            for item in cart:
-                oi = OrderItem(order=o, item=Jewel.objects.get(pk=item))
-                oi.save()
+        for cart_item in cart_items:
+            oi = OrderItem(order=o, item=Jewel.objects.get(pk=cart_item.item))
+            oi.save()
 
-            cart = []
-            filtered_metals = []
-            fineness_from = None
-            fineness_to = None
+            cart.delete()
 
-            return HttpResponseRedirect('/home')
+        return HttpResponseRedirect('/home')
 
-    return render(
-        request,
-        'order.html',
-        {
-            'year': datetime.now().year,
-            'number_in_cart': cart.__len__(),
-            'jewels': Jewel.objects.all().filter(id__in=cart)
-        },
-    )
+    return HttpResponseRedirect('/order')
 
 
 @csrf_exempt
 def buy(request, jewel_id, number):
     assert isinstance(request, HttpRequest)
     cart_id = request.session['cart_id']
+    cart = Cart.objects.get(pk=cart_id)
 
-    jewel = Jewel.objects.get(pk=jewel_id)
-    cart_item = CartItem(cart_id=cart_id, item_id=jewel_id, number=number, price=jewel.price*int(number))
+    added_price = Jewel.objects.get(pk=jewel_id).price * int(number)
+    cart_item = CartItem(cart_id=cart_id, item_id=jewel_id, number=number, price=added_price)
     cart_item.save()
+
+    cart.price_total += added_price
+    cart.save()
 
     return HttpResponseRedirect('/')
 
@@ -179,8 +181,3 @@ def update_filter(request, parameter, from_to, value):
     cart_filter.save()
 
     return HttpResponseRedirect('/')
-
-
-@register.filter
-def div(value, arg):
-    return int(value) * int(arg)
