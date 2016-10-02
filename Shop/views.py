@@ -7,7 +7,6 @@ from Shop.forms import OrderForm
 from django.http import HttpResponseRedirect
 from datetime import datetime
 from decimal import Decimal
-from django.db.models import Sum
 
 
 def create_cart():
@@ -29,7 +28,7 @@ def home(request):
         cart_id = create_cart().hex
         request.session['cart_id'] = cart_id
 
-    if Cart.objects.get(pk=cart_id) is None:
+    if cart_id is None or Cart.objects.all().filter(id=cart_id).count() == 0:
         cart_id = create_cart().hex
         request.session['cart_id'] = cart_id
 
@@ -106,14 +105,14 @@ def complete(request):
         cart_items = CartItem.objects.all().filter(cart_id=cart_id)
         o = Order(name=form.cleaned_data['name'], email=form.cleaned_data['email'],
                   phone=form.cleaned_data['phone'], address=form.cleaned_data['address'],
-                  cart=cart_id, price_total=cart.price_total)
+                  price_total=cart.price_total)
         o.save()
 
         for cart_item in cart_items:
-            oi = OrderItem(order=o, item=Jewel.objects.get(pk=cart_item.item))
+            oi = OrderItem(order=o, item=Jewel.objects.get(pk=cart_item.item.id))
             oi.save()
 
-            cart.delete()
+        cart.delete()
 
         return HttpResponseRedirect('/home')
 

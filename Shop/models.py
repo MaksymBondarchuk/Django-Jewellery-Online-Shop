@@ -4,6 +4,7 @@ from django.db import models
 
 class Metal(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_on = models.DateTimeField(auto_now_add=False, auto_now=True)
     name = models.CharField(max_length=100)
 
     def __unicode__(self):
@@ -15,6 +16,7 @@ class Metal(models.Model):
 
 class Jewel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_on = models.DateTimeField(auto_now_add=False, auto_now=True)
     name = models.CharField(max_length=100)
     metal = models.ForeignKey(Metal, on_delete=models.CASCADE)
     fineness = models.IntegerField(default=0)
@@ -32,11 +34,13 @@ class Jewel(models.Model):
 
 class Cart(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_on = models.DateTimeField(auto_now_add=False, auto_now=True)
     price_total = models.IntegerField(default=0)
 
 
 class CartItem(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_on = models.DateTimeField(auto_now_add=False, auto_now=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     item = models.ForeignKey(Jewel, on_delete=models.CASCADE)
     number = models.IntegerField(default=1)
@@ -45,6 +49,7 @@ class CartItem(models.Model):
 
 class CartFilter(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_on = models.DateTimeField(auto_now_add=False, auto_now=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     fineness_from = models.IntegerField(null=True)
     fineness_to = models.IntegerField(null=True)
@@ -62,12 +67,11 @@ class CartMetalFilter(models.Model):
 
 class Order(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_on = models.DateTimeField(auto_now_add=False, auto_now=True)
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     phone = models.CharField(max_length=20)
     address = models.CharField(max_length=250)
-    date = models.DateTimeField(auto_now_add=False, auto_now=True)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True)
     price_total = models.DecimalField(default=0, max_digits=1000, decimal_places=2)
 
     def __unicode__(self):
@@ -79,6 +83,7 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_on = models.DateTimeField(auto_now_add=False, auto_now=True)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     item = models.ForeignKey(Jewel, on_delete=models.CASCADE)
 
