@@ -39,6 +39,8 @@ class CartItem(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     item = models.ForeignKey(Jewel, on_delete=models.CASCADE)
+    number = models.IntegerField(default=1)
+    price = models.IntegerField(default=0)
 
 
 class Order(models.Model):

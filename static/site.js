@@ -51,4 +51,21 @@ function filterChanged(parameter, from_to, value) {
     location.href = parameter + "/" + from_to + "/" + value;
     // $.post("fineness", {parameter: parameter, value: value});
 }
+
+function buy(id) {
+    var div = document.getElementById(id + "-number");
+    location.href = "buy/" + id + "/" + div.innerHTML;
+}
+
+function inc(id) {
+    var div = document.getElementById(id + "-number");
+    if (div.innerHTML * 1 < 99)
+        div.innerHTML = div.innerHTML * 1 + 1;
+}
+
+function dec(id) {
+    var div = document.getElementById(id + "-number");
+    if (1 < div.innerHTML * 1)
+        div.innerHTML = div.innerHTML * 1 - 1;
+}
 // endregion Main page

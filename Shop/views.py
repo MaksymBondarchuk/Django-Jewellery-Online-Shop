@@ -8,6 +8,9 @@ from Shop.forms import OrderForm
 from django.http import HttpResponseRedirect
 from datetime import datetime
 from decimal import Decimal
+from django import template
+
+register = template.Library()
 
 
 def home(request):
@@ -79,8 +82,7 @@ def order(request):
         {
             'year': datetime.now().year,
             'number_in_cart': CartItem.objects.all().filter(cart_id=cart_id).__len__(),
-            'jewels': Jewel.objects.all().filter(
-                id__in=CartItem.objects.all().filter(cart_id=cart_id).values_list('item_id'))
+            'cart_items': CartItem.objects.all().filter(cart_id=cart_id)
         },
     )
 
@@ -119,11 +121,12 @@ def complete(request):
 
 
 @csrf_exempt
-def buy(request, jewel_id):
+def buy(request, jewel_id, number):
     assert isinstance(request, HttpRequest)
     cart_id = request.session['cart_id']
 
-    cart_item = CartItem(cart_id=cart_id, item_id=jewel_id)
+    jewel = Jewel.objects.get(pk=jewel_id)
+    cart_item = CartItem(cart_id=cart_id, item_id=jewel_id, number=number, price=jewel.price*int(number))
     cart_item.save()
 
     return HttpResponseRedirect('/')
@@ -134,6 +137,8 @@ def remove(request, jewel_id):
     assert isinstance(request, HttpRequest)
     cart_id = request.session['cart_id']
     CartItem.objects.get(cart_id=cart_id, item_id=jewel_id).delete()
+    if CartItem.objects.all().filter(cart_id=cart_id).count() == 0:
+        return HttpResponseRedirect('/')
     return HttpResponseRedirect('/order')
 
 
@@ -172,3 +177,8 @@ def update_filter(request, parameter, from_to, value):
     cart_filter.save()
 
     return HttpResponseRedirect('/')
+
+
+@register.filter
+def div(value, arg):
+    return int(value) * int(arg)

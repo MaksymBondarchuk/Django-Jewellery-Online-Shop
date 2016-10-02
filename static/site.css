@@ -52,7 +52,7 @@ a {
 
 .store-item {
     display: inline-block;
-    height: 400px;
+    height: 430px;
     width: 250px;
     margin: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -92,31 +92,56 @@ a {
     opacity: 0.7;
 }
 
-.store-item-title, .store-item-button {
+.store-item-title, .store-item-button, .store-item-updown, .store-item-number {
     height: 30px;
     font-size: 16px;
     line-height: 30px;
     text-align: center;
+
+    -webkit-transition: background-color 0.3s;
 }
 
 .store-item-title {
-    width: 200px;
+    width: 170px;
     float: left;
     background-color: #eaeaea;
 
     font-family: Calibri, sans-serif;
 }
 
+.store-item-number {
+    width: 50px;
+    float: right;
+    background-color: #eaeaea;
+    color: black;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .store-item-button {
     width: 50px;
     float: right;
     background-color: #104a7d;
-    -webkit-transition: background-color 0.3s;
     color: white;
     cursor: pointer;
 }
 
 .store-item-button:hover {
+    background-color: #007ACC;
+}
+
+.store-item-updown {
+    width: 30px;
+    float: right;
+    background-color: #ccc;;
+    color: black;
+    cursor: pointer;
+}
+
+.store-item-updown:hover {
     background-color: #007ACC;
 }
 

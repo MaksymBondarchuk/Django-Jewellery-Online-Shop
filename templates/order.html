@@ -30,16 +30,17 @@
     </form>
 
     <p class="text-order">By the way your cart is looking like:</p>
-    {% for jewel in jewels %}
+    {% for cart_item in cart_items %}
         <div class="store-item-order">
             <div class="inner-order">
-                <img src="Images/{{ jewel.image }}" alt="{{ jewel.name }}" class="store-image-order"
+                <img src="Images/{{ cart_item.item.image }}" alt="{{ cart_item.item.name }}" class="store-image-order"
                      onclick="zoomImage(this)"/>
-                <div class="store-item-title-order"><b>{{ jewel.name }}</b></div>
-                <a class="store-item-button-order" href="remove/{{ jewel.id }}">Remove</a>
-                <p class="description-order"><b>Made from </b>{{ jewel.metal.name }}<br/>
-                    <b>Fineness: </b>{{ jewel.fineness }}<br/>
-                    {{ jewel.description }}</p>
+                <div class="store-item-title-order"><b>{{ cart_item.item.name }} ({{ cart_item.number }})
+                - ${{ cart_item.price }}</b></div>
+                <a class="store-item-button-order" href="remove/{{ cart_item.item.id }}">Remove</a>
+                <p class="description-order"><b>Made from </b>{{ cart_item.item.metal.name }}<br/>
+                    <b>Fineness: </b>{{ cart_item.item.fineness }}<br/>
+                    {{ cart_item.item.description }}</p>
             </div>
         </div>
     {% endfor %}

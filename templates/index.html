@@ -59,10 +59,14 @@
                 <img src="Images/{{ jewel.image }}" alt="{{ jewel.name }}" class="store-image"
                      onclick="zoomImage(this)"/>
                 <div class="store-item-title"><b>{{ jewel.name }}</b></div>
-                <a class="store-item-button" href="buy/{{ jewel.id }}">Buy</a>
+                <div class="store-item-button button" onclick="buy('{{ jewel.id }}')">Buy</div>
+                <div class="store-item-updown button" onclick="inc('{{ jewel.id }}')"><b>+</b></div>
+                <div class="store-item-title">${{ jewel.price }}</div>
+                <div id="{{ jewel.id }}-number" class="store-item-number">1</div>
+                <div class="store-item-updown button" onclick="dec('{{ jewel.id }}')"><b>-</b></div>
                 <p class="description"><b>Made from </b>{{ jewel.metal.name }}<br/>
                     <b>Fineness: </b>{{ jewel.fineness }}<br/>
-                    <b>Price: </b>${{ jewel.price }}<br/>
+{#                    <b>Price: </b>${{ jewel.price }}<br/>#}
                     <b>Weight: </b>{{ jewel.weight }}h<br/>
                     {{ jewel.description }}</p>
             </div>
