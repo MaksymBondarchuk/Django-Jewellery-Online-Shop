@@ -41,10 +41,14 @@ function closeModal() {
 
 // region Main page
 function metalChecked(id, item) {
-    $.post("metal", {metal: id, state: item.checked});
+    location.href = "metal/" + id + "/" + item.checked;
+    // $.post("metal", {metal: id, state: item.checked});
 }
 
-function finenessChanged(parameter, value) {
-    $.post("fineness", {parameter: parameter, value: value});
+function filterChanged(parameter, from_to, value) {
+    if (!value || value == "")
+        value = '-1';
+    location.href = parameter + "/" + from_to + "/" + value;
+    // $.post("fineness", {parameter: parameter, value: value});
 }
 // endregion Main page

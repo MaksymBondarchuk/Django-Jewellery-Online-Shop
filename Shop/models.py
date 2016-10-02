@@ -20,7 +20,7 @@ class Jewel(models.Model):
     fineness = models.IntegerField(default=0)
     image = models.ImageField(upload_to='Images')
     description = models.CharField(max_length=1000, default='')
-    price = models.DecimalField(default=0, max_digits=1000, decimal_places=2)
+    price = models.IntegerField(default=0)
     weight = models.IntegerField(default=0)
 
     def __unicode__(self):

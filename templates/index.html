@@ -2,11 +2,12 @@
 {% load static %}
 
 {% block content %}
+    {# Filters#}
     <div class="filter">
         <div class="filter-header"><b>Filter</b></div>
         <b>By metal</b><br>
         {% for metal in metals %}
-            {% if metal.id in forbidden_metals %}
+            {% if metal.id in filtered_metals %}
                 <input type="checkbox" value="{{ metal.id }}" name="metal" title="123"
                        onchange="metalChecked(value, this)" checked>{{ metal.name }}<br>
             {% else %}
@@ -17,12 +18,38 @@
         <hr>
         <b>By fineness</b><br>
         <div class="text-input">
-            <div class="filter-close" onclick="finenessChanged('from', '')">x</div>
-            From <input class="filter-input" type="text" name="from" title="From" onchange="finenessChanged(name, value)"
+            <div class="filter-close" onclick="filterChanged('fineness', 'from', '')">x</div>
+            From <input class="filter-input" type="text" name="from" title="From"
+                        onchange="filterChanged('fineness', name, value)"
                         value="{{ fineness_from }}" align="right"><br/>
-            <div class="filter-close"  onclick="finenessChanged('to', '')">x</div>
-            To <input class="filter-input" type="text" name="to" title="To" onchange="finenessChanged(name, value)"
+            <div class="filter-close" onclick="filterChanged('fineness', 'to', '')">x</div>
+            To <input class="filter-input" type="text" name="to" title="To"
+                      onchange="filterChanged('fineness', name, value)"
                       value="{{ fineness_to }}" align="right"><br/>
+        </div>
+        <hr>
+        <b>By price</b><br>
+        <div class="text-input">
+            <div class="filter-close" onclick="filterChanged('price', 'from', '')">x</div>
+            From <input class="filter-input" type="text" name="from" title="From"
+                        onchange="filterChanged('price', name, value)"
+                        value="{{ price_from }}" align="right"><br/>
+            <div class="filter-close" onclick="filterChanged('price', 'to', '')">x</div>
+            To <input class="filter-input" type="text" name="to" title="To"
+                      onchange="filterChanged('price', name, value)"
+                      value="{{ price_to }}" align="right"><br/>
+        </div>
+        <hr>
+        <b>By weight</b><br>
+        <div class="text-input">
+            <div class="filter-close" onclick="filterChanged('weight', 'from', '')">x</div>
+            From <input class="filter-input" type="text" name="from" title="From"
+                        onchange="filterChanged('weight', name, value)"
+                        value="{{ weight_from }}" align="right"><br/>
+            <div class="filter-close" onclick="filterChanged('weight', 'to', '')">x</div>
+            To <input class="filter-input" type="text" name="to" title="To"
+                      onchange="filterChanged('weight', name, value)"
+                      value="{{ weight_to }}" align="right"><br/>
         </div>
     </div>
 
@@ -35,6 +62,8 @@
                 <a class="store-item-button" href="buy/{{ jewel.id }}">Buy</a>
                 <p class="description"><b>Made from </b>{{ jewel.metal.name }}<br/>
                     <b>Fineness: </b>{{ jewel.fineness }}<br/>
+                    <b>Price: </b>${{ jewel.price }}<br/>
+                    <b>Weight: </b>{{ jewel.weight }}h<br/>
                     {{ jewel.description }}</p>
             </div>
         </div>

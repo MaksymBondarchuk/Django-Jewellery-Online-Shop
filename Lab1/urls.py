@@ -27,8 +27,8 @@ urlpatterns = [
     url(r'^complete', Shop.views.complete),
 
     #  Filtration
-    url(r'^metal', Shop.views.metal),
-    url(r'^fineness', Shop.views.fineness),
+    url(r'^metal/([^/]+)/(true|false)', Shop.views.metal),
+    url(r'^(fineness|weight|price)/([a-z]+)/([\d,.-]+)', Shop.views.update_filter),
 
     url(r'^buy/([^/]+)', Shop.views.buy),
     url(r'^remove/([^/]+)', Shop.views.remove),

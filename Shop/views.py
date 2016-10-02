@@ -7,11 +7,7 @@ from django.db.models import Q
 from Shop.forms import OrderForm
 from django.http import HttpResponseRedirect
 from datetime import datetime
-
-# cart = []
-filtered_metals = []
-fineness_from = None
-fineness_to = None
+from decimal import Decimal
 
 
 def home(request):
@@ -20,16 +16,39 @@ def home(request):
     try:
         cart_id = request.session['cart_id']
     except KeyError:
-        cart_id = None
+        new_cart = Cart()
+        new_cart.save()
+        cart_id = new_cart.id
+        request.session['cart_id'] = cart_id.hex
+
+        cart_filter = CartFilter(cart_id=cart_id)
+        cart_filter.save()
     # cart = Cart.objects.get(pk=cart_id)
     jewels = Jewel.objects.all().filter(
         ~Q(id__in=CartItem.objects.all().filter(cart_id=cart_id).values_list('item_id')))
-    if filtered_metals:
-        jewels = jewels.filter(metal__id__in=filtered_metals)
-    if fineness_from is not None:
-        jewels = jewels.filter(fineness__gte=fineness_from)
-    if fineness_to is not None:
-        jewels = jewels.filter(fineness__lte=fineness_to)
+
+    # Metal filter
+    cart_metal_filter = CartMetalFilter.objects.all().filter(cart_id=cart_id)
+    if cart_metal_filter:
+        jewels = jewels.filter(metal__id__in=cart_metal_filter.values_list('metal_id'))
+
+    # Other filters
+    cart_filter = CartFilter.objects.all().filter(cart_id=cart_id).first()
+    if cart_filter.fineness_from is not None:
+        jewels = jewels.filter(fineness__gte=cart_filter.fineness_from)
+    if cart_filter.fineness_to is not None:
+        jewels = jewels.filter(fineness__lte=cart_filter.fineness_to)
+
+    if cart_filter.price_from is not None:
+        jewels = jewels.filter(price__gte=cart_filter.price_from)
+    if cart_filter.price_to is not None:
+        jewels = jewels.filter(price__lte=cart_filter.price_to)
+
+    if cart_filter.weight_from is not None:
+        jewels = jewels.filter(weight__gte=cart_filter.weight_from)
+    if cart_filter.weight_to is not None:
+        jewels = jewels.filter(weight__lte=cart_filter.weight_to)
+
     return render(
         request,
         'index.html',
@@ -38,10 +57,14 @@ def home(request):
             'number_in_cart': CartItem.objects.all().filter(cart_id=cart_id).__len__(),
             'jewels': jewels,
             'metals': Metal.objects.all(),
-            'forbidden_metals': filtered_metals,
-            'fineness_from': fineness_from if fineness_from is not None else '',
-            'fineness_to': fineness_to if fineness_to is not None else ''
-        },
+            'filtered_metals': cart_metal_filter.values_list('metal_id', flat=True),
+            'fineness_from': cart_filter.fineness_from if cart_filter.fineness_from is not None else '',
+            'fineness_to': cart_filter.fineness_to if cart_filter.fineness_to is not None else '',
+            'price_from': cart_filter.price_from if cart_filter.price_from is not None else '',
+            'price_to': cart_filter.price_to if cart_filter.price_to is not None else '',
+            'weight_from': cart_filter.weight_from if cart_filter.weight_from is not None else '',
+            'weight_to': cart_filter.weight_to if cart_filter.weight_to is not None else '',
+        }
     )
 
 
@@ -98,19 +121,12 @@ def complete(request):
 @csrf_exempt
 def buy(request, jewel_id):
     assert isinstance(request, HttpRequest)
-    # jewel_id = uuid.UUID(request.POST.get('jewel', ''))
-    try:
-        cart_id = request.session['cart_id']
-    except KeyError:
-        new_cart = Cart()
-        new_cart.save()
-        cart_id = new_cart.id
-        request.session['cart_id'] = cart_id.hex
+    cart_id = request.session['cart_id']
 
     cart_item = CartItem(cart_id=cart_id, item_id=jewel_id)
     cart_item.save()
 
-    return HttpResponseRedirect('/home')
+    return HttpResponseRedirect('/')
 
 
 @csrf_exempt
@@ -122,48 +138,37 @@ def remove(request, jewel_id):
 
 
 @csrf_exempt
-def metal(request):
-    assert isinstance(request, HttpRequest)
-    metal_id = uuid.UUID(request.POST.get('metal', ''))
-    state = request.POST.get('state', '')
-    if state != 'false':
-        filtered_metals.append(metal_id)
+def metal(request, metal_id, is_for_add):
+    cart_id = request.session['cart_id']
+    if is_for_add == 'true':
+        cart_metal_filter = CartMetalFilter(cart_id=cart_id, metal_id=metal_id)
+        cart_metal_filter.save()
     else:
-        filtered_metals.remove(metal_id)
-    return render(
-        request,
-        'index.html',
-        {
-            'year': datetime.now().year,
-            'numberInCard': cart.__len__(),
-            'jewels': Jewel.objects.all()
-        },
-        RequestContext(request)
-    )
+        CartMetalFilter.objects.all().filter(cart_id=cart_id).filter(metal_id=metal_id).delete()
+    return HttpResponseRedirect('/')
 
 
 @csrf_exempt
-def fineness(request):
+def update_filter(request, parameter, from_to, value):
     assert isinstance(request, HttpRequest)
-    parameter = request.POST.get('parameter', '')
-    value = request.POST.get('value', '')
-    if value == '':
-        value = None
-    else:
-        value = int(value)
-    if parameter == 'from':
-        global fineness_from
-        fineness_from = value
-    else:
-        global fineness_to
-        fineness_to = value
-    return render(
-        request,
-        'index.html',
-        {
-            'year': datetime.now().year,
-            'numberInCard': cart.__len__(),
-            'jewels': Jewel.objects.all()
-        },
-        RequestContext(request)
-    )
+
+    cart_id = request.session['cart_id']
+    cart_filter = CartFilter.objects.get(cart_id=cart_id)
+    if parameter == 'fineness':
+        if from_to == 'from':
+            cart_filter.fineness_from = int(value) if value != '-1' else None
+        else:
+            cart_filter.fineness_to = int(value) if value != '-1' else None
+    elif parameter == 'price':
+        if from_to == 'from':
+            cart_filter.price_from = Decimal(value) if value != '-1' else None
+        else:
+            cart_filter.price_to = Decimal(value) if value != '-1' else None
+    elif parameter == 'weight':
+        if from_to == 'from':
+            cart_filter.weight_from = int(value) if value != '-1' else None
+        else:
+            cart_filter.weight_to = int(value) if value != '-1' else None
+    cart_filter.save()
+
+    return HttpResponseRedirect('/')
