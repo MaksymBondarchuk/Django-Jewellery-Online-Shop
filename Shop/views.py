@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from datetime import datetime
 from decimal import Decimal
 from django import template
+from django.db.models import Sum
 
 register = template.Library()
 
@@ -82,8 +83,9 @@ def order(request):
         {
             'year': datetime.now().year,
             'number_in_cart': CartItem.objects.all().filter(cart_id=cart_id).__len__(),
-            'cart_items': CartItem.objects.all().filter(cart_id=cart_id)
-        },
+            'cart_items': CartItem.objects.all().filter(cart_id=cart_id),
+            'total_price': CartItem.objects.all().filter(cart_id=cart_id).aggregate(Sum('price'))
+        }
     )
 
 

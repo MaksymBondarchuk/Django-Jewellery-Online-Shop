@@ -131,3 +131,10 @@
     margin-bottom: 10px;
     font-size: 30px;
 }
+
+.total-price {
+    margin-top: 20px;
+    text-align: right;
+    font-size: 22px;
+    border-top: 3px solid black;
+}
