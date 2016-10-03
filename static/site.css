@@ -45,6 +45,7 @@ a {
 }
 
 .body-content {
+    min-height: 520px;
     height: 100%;
     margin-top: 50px;
     margin-bottom: 10px;
