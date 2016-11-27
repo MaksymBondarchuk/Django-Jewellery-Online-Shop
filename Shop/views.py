@@ -195,3 +195,12 @@ def update_filter(request, parameter, from_to, value):
     cart_filter.save()
 
     return HttpResponseRedirect('/')
+
+
+@csrf_exempt
+def login(request):
+    return render(
+        request,
+        'login.html',
+        ''
+    )

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loged in</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'site.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'header.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'filter.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'footer.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'other.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'order.css' %}"/>
+    <link rel="shortcut icon" type="image/png" href="../Images/favicon.ico"/>
+    <script src="{% static 'site.js' %}"></script>
+    <script src="{% static 'jquery-3.1.1.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'additional.css' %}"/>
+</head>
+<body class="body-additional">
+<form action="/admin/" method="post">{% csrf_token %}
+    <div class="center-login">
+        <p class="info">Logged-in successfully</p>
+        <input type="submit" class="additional-button order-proceed button" value="Administrate" onclick="">
+    </div>
+</form>
+</body>
+</html>
