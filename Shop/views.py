@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpRequest
+# from django.views.decorators.cache import cache_page
+
 from Shop.models import *
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
@@ -7,6 +9,7 @@ from Shop.forms import OrderForm
 from django.http import HttpResponseRedirect
 from datetime import datetime
 from decimal import Decimal
+# from django.core.cache import caches
 
 
 def create_cart():
@@ -19,6 +22,7 @@ def create_cart():
     return cart_id
 
 
+# @cache_page(5)  # 5 sec
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)

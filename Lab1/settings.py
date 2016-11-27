@@ -123,3 +123,10 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "Images")
 MEDIA_URL = os.path.join(BASE_DIR, "Images/")
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:12345',
+    }
+}
