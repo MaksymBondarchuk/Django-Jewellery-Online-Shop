@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpRequest
 # from django.views.decorators.cache import cache_page
-
+from Shop.backend import send_mail
 from Shop.models import *
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
@@ -118,7 +118,7 @@ def complete(request):
             oi.save()
 
         cart.delete()
-
+        send_mail(o.name)
         return HttpResponseRedirect('/home')
 
     return render(
