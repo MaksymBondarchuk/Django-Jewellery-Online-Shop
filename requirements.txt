@@ -6,3 +6,7 @@ python-memcached=1.58
 djangorestframework=3.5.3
 sqlalchemy>=1.0.14
 celery>=4.0
+djangorestframework
+markdown
+django-filter
+django_celery_results
