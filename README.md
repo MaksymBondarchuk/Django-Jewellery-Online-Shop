@@ -25,3 +25,6 @@ And do as written (especially install server)
 
 Then run worker
 > celery -A Lab1 worker -l info
+
+Yagmail manual:
+> https://github.com/kootenpv/yagmail
