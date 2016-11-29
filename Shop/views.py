@@ -5,18 +5,12 @@ from django.db.models import Q
 from django.http import HttpRequest
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 
 from Shop.tasks import send_mail
 from Shop.forms import OrderForm
 from Shop.models import *
-
-from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
-from Shop.serializers import UserSerializer, GroupSerializer
-
-
-# from django.core.cache import caches
 
 
 def create_cart():
@@ -29,8 +23,10 @@ def create_cart():
     return cart_id
 
 
-# @cache_page(5)  # 5 sec
+@cache_page(10)  # 10 sec
 def home(request):
+    # cache.set('test', 'test value')
+
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
     try:
