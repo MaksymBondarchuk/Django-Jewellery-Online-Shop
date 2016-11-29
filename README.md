@@ -8,8 +8,9 @@ After each change in models or related perform next:
 Go to and see magic
 http://127.0.0.1:8000/api-auth/login
 
-Used this manual:
+Used this manuals:
 http://www.django-rest-framework.org/#example
+http://www.django-rest-framework.org/tutorial/quickstart/
 
 
 ###Memcashed

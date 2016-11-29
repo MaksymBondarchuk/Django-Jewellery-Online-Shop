@@ -11,6 +11,10 @@ from Shop.tasks import send_mail
 from Shop.forms import OrderForm
 from Shop.models import *
 
+from django.contrib.auth.models import User, Group
+from rest_framework import viewsets
+from Shop.serializers import UserSerializer, GroupSerializer
+
 
 # from django.core.cache import caches
 
