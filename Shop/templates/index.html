@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+    {# Filters#}
+{#    <div class="filter">#}
+{#        <div class="filter-header"><b>Filter</b></div>#}
+{#        <b>By metal</b><br>#}
+{#        {% for metal in metals %}#}
+{#            {% if metal.id in filtered_metals %}#}
+{#                <input type="checkbox" value="{{ metal.id }}" name="metal" title="123"#}
+{#                       onchange="metalChecked(value, this)" checked>{{ metal.name }}<br>#}
+{#            {% else %}#}
+{#                <input type="checkbox" value="{{ metal.id }}" name="metal" title="123"#}
+{#                       onchange="metalChecked(value, this)">{{ metal.name }}<br>#}
+{#            {% endif %}#}
+{#        {% endfor %}#}
+{#        <hr>#}
+{#        <b>By fineness</b><br>#}
+{#        <div class="text-input">#}
+{#            <div class="filter-close" onclick="filterChanged('fineness', 'from', '')">x</div>#}
+{#            From <input class="filter-input" type="text" name="from" title="From"#}
+{#                        onchange="filterChanged('fineness', name, value)"#}
+{#                        value="{{ fineness_from }}" align="right"><br/>#}
+{#            <div class="filter-close" onclick="filterChanged('fineness', 'to', '')">x</div>#}
+{#            To <input class="filter-input" type="text" name="to" title="To"#}
+{#                      onchange="filterChanged('fineness', name, value)"#}
+{#                      value="{{ fineness_to }}" align="right"><br/>#}
+{#        </div>#}
+{#        <hr>#}
+{#        <b>By price</b><br>#}
+{#        <div class="text-input">#}
+{#            <div class="filter-close" onclick="filterChanged('price', 'from', '')">x</div>#}
+{#            From <input class="filter-input" type="text" name="from" title="From"#}
+{#                        onchange="filterChanged('price', name, value)"#}
+{#                        value="{{ price_from }}" align="right"><br/>#}
+{#            <div class="filter-close" onclick="filterChanged('price', 'to', '')">x</div>#}
+{#            To <input class="filter-input" type="text" name="to" title="To"#}
+{#                      onchange="filterChanged('price', name, value)"#}
+{#                      value="{{ price_to }}" align="right"><br/>#}
+{#        </div>#}
+{#        <hr>#}
+{#        <b>By weight</b><br>#}
+{#        <div class="text-input">#}
+{#            <div class="filter-close" onclick="filterChanged('weight', 'from', '')">x</div>#}
+{#            From <input class="filter-input" type="text" name="from" title="From"#}
+{#                        onchange="filterChanged('weight', name, value)"#}
+{#                        value="{{ weight_from }}" align="right"><br/>#}
+{#            <div class="filter-close" onclick="filterChanged('weight', 'to', '')">x</div>#}
+{#            To <input class="filter-input" type="text" name="to" title="To"#}
+{#                      onchange="filterChanged('weight', name, value)"#}
+{#                      value="{{ weight_to }}" align="right"><br/>#}
+{#        </div>#}
+{#    </div>#}
+
+    {% for jewel in jewels %}
+        <div class="store-item">
+            <div class="inner">
+                <img src="Images/{{ jewel.image }}" alt="{{ jewel.name }}" class="store-image"
+                     onclick="zoomImage(this)"/>
+                <div class="store-item-title"><b>{{ jewel.name }}</b></div>
+                <div class="store-item-button button" onclick="buy('{{ jewel.id }}')">Buy</div>
+                <div class="store-item-updown button" onclick="inc('{{ jewel.id }}')"><b>+</b></div>
+                <div class="store-item-title">${{ jewel.price }}</div>
+                <div id="{{ jewel.id }}-number" class="store-item-number">1</div>
+                <div class="store-item-updown button" onclick="dec('{{ jewel.id }}')"><b>-</b></div>
+                <p class="description"><b>Made from </b>{{ jewel.metal.name }}<br/>
+                    <b>Fineness: </b>{{ jewel.fineness }}<br/>
+{#                    <b>Price: </b>${{ jewel.price }}<br/>#}
+                    <b>Weight: </b>{{ jewel.weight }}h<br/>
+                    {{ jewel.description }}</p>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

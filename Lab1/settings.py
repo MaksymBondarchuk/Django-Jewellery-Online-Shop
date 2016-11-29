@@ -54,7 +54,7 @@ ROOT_URLCONF = 'Lab1.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'Shop/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -75,8 +75,8 @@ WSGI_APPLICATION = 'Lab1.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django_mongodb_engine',
+        'NAME': 'WebAppLab3'
     }
 }
 

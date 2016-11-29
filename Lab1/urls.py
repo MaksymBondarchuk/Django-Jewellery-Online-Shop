@@ -17,6 +17,8 @@ from django.conf.urls import url
 from django.contrib import admin
 import Shop.views
 
+admin.autodiscover()
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
@@ -25,10 +27,6 @@ urlpatterns = [
 
     url(r'^order', Shop.views.order),
     url(r'^complete', Shop.views.complete),
-
-    #  Filtration
-    url(r'^metal/([^/]+)/(true|false)', Shop.views.metal),
-    url(r'^(fineness|weight|price)/([a-z]+)/([\d,.-]+)', Shop.views.update_filter),
 
     url(r'^buy/([^/]+)/([\d]+)', Shop.views.buy),
     url(r'^remove/([^/]+)', Shop.views.remove),
