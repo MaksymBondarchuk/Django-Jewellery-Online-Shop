@@ -2,7 +2,6 @@ import os
 
 from django.shortcuts import render
 from django.http import HttpRequest
-from django_extensions.db.fields import json
 
 from Lab1.settings import BASE_DIR
 from Shop.models import *
@@ -22,6 +21,9 @@ def create_cart():
 
 
 def home(request):
+    jewel = Jewel(name='The Daria-e Noor', image='The_Daria-e_Noor_(Sea_of_Light)_Diamond_from_the_collection_of_the_national_jewels_of_Iran_at_Central_Bank_of_Islamic_Republic_of_Iran.jpg', metal_id='583d032ade904f1b6475b931', price=70)
+    jewel.save()
+
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
     try:

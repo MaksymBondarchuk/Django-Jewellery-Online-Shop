@@ -21,7 +21,7 @@ class Jewel(models.Model):
     name = models.CharField(max_length=100)
     metal = models.ForeignKey(Metal, on_delete=models.CASCADE)
     fineness = models.IntegerField(default=0)
-    image = models.ImageField(upload_to='Images/')
+    image = models.ImageField(upload_to='../Images/')
     description = models.CharField(max_length=1000, default='')
     price = models.IntegerField(default=0)
     weight = models.IntegerField(default=0)
@@ -39,7 +39,7 @@ class Cart(models.Model):
     created_on = models.DateTimeField(auto_now_add=False, auto_now=True)
     price_total = models.IntegerField(default=0)
 
-    items = ListField(EmbeddedModelField('CartItem'))
+    # items = ListField(EmbeddedModelField('CartItem'))
 
     objects = MongoDBManager()
 
