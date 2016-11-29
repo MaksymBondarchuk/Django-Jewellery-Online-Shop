@@ -6,11 +6,9 @@ from django.http import HttpRequest
 from Lab1.settings import BASE_DIR
 from Shop.models import *
 from django.views.decorators.csrf import csrf_exempt
-from django.db.models import Q
 from Shop.forms import OrderForm
 from django.http import HttpResponseRedirect
 from datetime import datetime
-from decimal import Decimal
 
 
 def create_cart():
@@ -21,9 +19,6 @@ def create_cart():
 
 
 def home(request):
-    # jewel = Jewel(name='The Daria-e Noor', image='The_Daria-e_Noor_(Sea_of_Light)_Diamond_from_the_collection_of_the_national_jewels_of_Iran_at_Central_Bank_of_Islamic_Republic_of_Iran.jpg', metal_id='583d032ade904f1b6475b931', price=70)
-    # jewel.save()
-
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
     try:
@@ -38,7 +33,6 @@ def home(request):
         request.session["cart_id"] = cart_id
 
     jewels = Jewel.objects.all()
-    # .filter(_id__~Q(id__in=CartItem.objects.all().filter(cart_id=cart_id).values_list("item_id")))
 
     return render(
         request,
@@ -130,4 +124,3 @@ def remove(request, jewel_id):
     if CartItem.objects.all().filter(cart_id=cart_id).count() == 0:
         return HttpResponseRedirect("/")
     return HttpResponseRedirect("/order")
-

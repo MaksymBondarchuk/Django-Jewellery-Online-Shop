@@ -16,3 +16,5 @@ To setup Django MongoDB:
 1. > pip install git+https://github.com/django-nonrel/django@nonrel-1.5
 2. > pip install git+https://github.com/django-nonrel/djangotoolbox
 3. > pip install git+https://github.com/django-nonrel/mongodb-engine
+
+Django will downgrade to 1.5
