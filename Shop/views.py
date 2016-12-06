@@ -1,17 +1,14 @@
+from django.shortcuts import render
+from django.http import HttpRequest
+# from django.views.decorators.cache import cache_page
+from Shop.backend import send_mail
+from Shop.models import *
+from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
+from Shop.forms import OrderForm
+from django.http import HttpResponseRedirect
 from datetime import datetime
 from decimal import Decimal
-
-from django.db.models import Q
-from django.http import HttpRequest
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
-
-from Shop.tasks import send_mail
-from Shop.forms import OrderForm
-from Shop.models import *
-
-
 # from django.core.cache import caches
 
 
@@ -121,8 +118,7 @@ def complete(request):
             oi.save()
 
         cart.delete()
-        # send_mail.apply_async((o.name, price))
-        send_mail.delay(o.name)
+        send_mail(o.name)
         return HttpResponseRedirect('/home')
 
     return render(
