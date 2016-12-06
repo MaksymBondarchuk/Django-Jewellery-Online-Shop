@@ -25,11 +25,11 @@ def home(request):
     try:
         cart_id = request.session['cart_id']
     except KeyError:
-        cart_id = create_cart().hex
+        cart_id = create_cart()
         request.session['cart_id'] = cart_id
 
     if cart_id is None or Cart.objects.all().filter(id=cart_id).count() == 0:
-        cart_id = create_cart().hex
+        cart_id = create_cart()
         request.session['cart_id'] = cart_id
 
     jewels = Jewel.objects.all().filter(

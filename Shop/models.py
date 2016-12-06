@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Metal(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_on = models.DateTimeField(auto_now_add=False, auto_now=True)
     name = models.CharField(max_length=100)
 
@@ -15,12 +15,12 @@ class Metal(models.Model):
 
 
 class Jewel(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_on = models.DateTimeField(auto_now_add=False, auto_now=True)
     name = models.CharField(max_length=100)
     metal = models.ForeignKey(Metal, on_delete=models.CASCADE)
     fineness = models.IntegerField(default=0)
-    image = models.ImageField(upload_to='')
+    image = models.ImageField(upload_to='Images/')
     description = models.CharField(max_length=1000, default='')
     price = models.IntegerField(default=0)
     weight = models.IntegerField(default=0)
@@ -33,13 +33,13 @@ class Jewel(models.Model):
 
 
 class Cart(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_on = models.DateTimeField(auto_now_add=False, auto_now=True)
     price_total = models.IntegerField(default=0)
 
 
 class CartItem(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_on = models.DateTimeField(auto_now_add=False, auto_now=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     item = models.ForeignKey(Jewel, on_delete=models.CASCADE)
@@ -48,7 +48,7 @@ class CartItem(models.Model):
 
 
 class CartFilter(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_on = models.DateTimeField(auto_now_add=False, auto_now=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     fineness_from = models.IntegerField(null=True)
@@ -60,13 +60,13 @@ class CartFilter(models.Model):
 
 
 class CartMetalFilter(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     metal = models.ForeignKey(Metal, on_delete=models.CASCADE)
 
 
 class Order(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_on = models.DateTimeField(auto_now_add=False, auto_now=True)
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
@@ -82,7 +82,7 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_on = models.DateTimeField(auto_now_add=False, auto_now=True)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     item = models.ForeignKey(Jewel, on_delete=models.CASCADE)
