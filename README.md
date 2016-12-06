@@ -1,7 +1,6 @@
 ###Lab1 migrations
 After each change in models or related perform next:
 > python3 manage.py makemigrations
-
 > python3 manage.py migrate
 
 ###REST
