@@ -1,10 +1,16 @@
 ###Mongo
 Setting up MongoDB:
+
 1. Create config file mongod.cfg like
+
 "bind_ip = 127.0.0.1
+
 dbpath = C:\mongodb\data\db
+
 logpath = C:\mongodb\log\mongo-server.log
+
 verbose=v"
+
 2. > mongod --config mongod.cfg --install
 
 3. > net start MongoDB
